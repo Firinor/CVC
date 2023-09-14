@@ -2,6 +2,6 @@
     {
         Health,
         Defence,
-        Vampiric,
+        Energy,
         Attack
     }

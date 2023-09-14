@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
         {Attribute.Attack, new LimitedFloatReactiveProperty() },
         {Attribute.Defence, new LimitedFloatReactiveProperty() },
         {Attribute.Health, new LimitedFloatReactiveProperty() },
-        {Attribute.Vampiric, new LimitedFloatReactiveProperty() } 
+        {Attribute.Energy, new LimitedFloatReactiveProperty() } 
     };
 
     public ReactiveCollection<Buff> Buffs;
@@ -97,12 +97,6 @@ public class Unit : MonoBehaviour
         BoostWithBuffs(ref damage);
 
         float totalDamageDone = target.TakeHit(damage);
-
-        if (currentStats[Attribute.Vampiric].Value > 0)
-        {
-            float vampiricHeal = totalDamageDone * Ratios.PercentagesInRates(currentStats[Attribute.Vampiric].Value);
-            HealthPoint += vampiricHeal;
-        }  
     }
 
     private AttackData GenerateAttackData()
