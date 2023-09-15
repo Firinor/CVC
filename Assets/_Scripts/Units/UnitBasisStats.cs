@@ -11,8 +11,8 @@ public class UnitBasisStats : ScriptableObject
     public float DefenceRate;
     public float MaxDefenceRate = 100;
 
-    public float VampiricRate;
-    public float MaxVampiricRate = 100;
+    public float Energy;
+    public float MaxEnergy = 100;
 
     public int BuffLimit = 2;
 }

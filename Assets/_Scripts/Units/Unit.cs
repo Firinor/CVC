@@ -14,6 +14,10 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Unit target;
 
+    private Team team;
+
+    [SerializeField]
+    private SpriteRenderer unitSprite;
     [SerializeField]
     private UnitBasisStats basisStats;
     private UnitAttributes currentStats = new UnitAttributes()
@@ -41,16 +45,16 @@ public class Unit : MonoBehaviour
         }
     }
 
-    private void ToDead()
-    {
-        throw new NotImplementedException();
-    }
 
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
-    private void Awake()
+    public void Initialize(Team team)
     {
+        if (this.team != Team.None)
+            throw new Exception("You cannot initialize an already initialized unit!");
+
+        this.team = team;
         InitStats();
     }
 
@@ -86,6 +90,10 @@ public class Unit : MonoBehaviour
 
     }
 
+    private void ToDead()
+    {
+        throw new NotImplementedException();
+    }
     public void Attack()
     {
         //if(MissCheck()) return;
