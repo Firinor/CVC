@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class Farm : Building
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private float productionSpeed;
+    private float productionRate;
+    public bool IsFoodReady;
+
+    private void Start()
     {
-        
+        Initialize();
+        owner.AddFarm(this);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
-        
+        if (productionRate <= 0 && !IsFoodReady)
+        {
+            productionRate += BattleBalance.GetFarmRate();
+        }
+
+        if (productionRate > 0)
+        {
+            productionRate -= productionSpeed * Time.fixedDeltaTime;
+            if (productionRate <= 0)
+            {
+                IsFoodReady = true;
+            }
+        }
     }
 }

@@ -3,13 +3,17 @@ using UnityEngine;
 public class Castle : Building
 {
     [SerializeField]
-    private Team team;
-    [SerializeField]
     private float productionSpeed;
     private float productionRate;
     [SerializeField]
     private UnitClass productionUnit;
     private bool isNeedNewUnit = true;
+
+    private void Start()
+    {
+        Initialize();
+        owner.AddCastle(this);
+    }
 
     private void FixedUpdate()
     {
@@ -17,7 +21,7 @@ public class Castle : Building
         {
             if (BattleManager.IsEnoughResources(productionUnit)) 
             {
-                BattleManager.RemoveResources(team, productionUnit);
+                BattleManager.RemoveResources(owner, productionUnit);
                 productionRate += BattleBalance.GetProductionRate(productionUnit); 
             }
         }
@@ -45,8 +49,8 @@ public class Castle : Building
             UnitDataBase.GetUnit(productionUnit),
             transform.position, 
             Quaternion.identity, 
-            BattleManager.GetTeamParent(team));
+            BattleManager.GetParentTransform(owner));
 
-        newUnit.GetComponent<Unit>().Initialize(team, BattleBalance.GetStats(productionUnit));
+        newUnit.GetComponent<Unit>().Initialize(owner, BattleBalance.GetStats(productionUnit));
     }
 }

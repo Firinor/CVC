@@ -10,6 +10,16 @@ public class BattleBalanceScriptableObject : ScriptableObject
     public UnitBattleBalanceStats Mage;
     public UnitBattleBalanceStats Fly;
 
+    public BuildingBattleBalanceStats Castle;
+    public BuildingBattleBalanceStats Hous;
+    public BuildingBattleBalanceStats Farm;
+    public BuildingBattleBalanceStats Barrack;
+    public BuildingBattleBalanceStats Tower;
+
+    public float GetFarmRate()
+    {
+        return Farm.ProductionRate;
+    }
     public float GetProductionRate(UnitClass productionUnit)
     {
         switch (productionUnit)
@@ -28,7 +38,6 @@ public class BattleBalanceScriptableObject : ScriptableObject
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
         }
     }
-
     public UnitBasisStats GetStats(UnitClass productionUnit)
     {
         switch (productionUnit)

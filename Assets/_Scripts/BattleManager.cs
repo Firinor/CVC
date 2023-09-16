@@ -4,28 +4,53 @@ using UnityEngine;
 public class BattleManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform RedTeamParent;
+    private Player redPlayer;
     [SerializeField]
-    private Transform BlueTeamParent;
+    private Player bluePlayer;
+    [SerializeField]
+    private Transform redTeamParent;
+    [SerializeField]
+    private Transform blueTeamParent;
+    [SerializeField]
+    private Transform gridTransform;
 
     private static BattleManager instance;
+    [SerializeField]
+    private Grid grid;
 
     private void Awake()
     {
         instance = this;
+        redPlayer = new Player();
+        bluePlayer = new Player();
+        BuildFirstBuildings();
     }
 
-    public static Transform GetTeamParent(Team team)
+    private void BuildFirstBuildings()
     {
-        switch (team)
-        {
-            case Team.Red:
-                return instance.RedTeamParent;
-            case Team.Blue:
-                return instance.BlueTeamParent;
-            default:
-                throw new Exception("Could not find a transform for the specified command!");
-        }
+        CleanLevel();
+
+    }
+
+    private void CleanLevel()
+    {
+        GameCleaner.DeleteAllChild(redTeamParent);
+        GameCleaner.DeleteAllChild(blueTeamParent);
+        GameCleaner.DeleteAllChild(gridTransform);
+    }
+
+    public static Player GetPlayer()
+    {
+        return instance.redPlayer;
+    }
+    public static Transform GetParentTransform(Player player)
+    {
+        if(player == instance.redPlayer)
+            return instance.redTeamParent;
+        else if (player == instance.bluePlayer)
+            return instance.blueTeamParent;
+        else
+            throw new Exception("Could not find a transform for the specified command!");
     }
 
     public static bool IsEnoughResources(UnitClass productionUnit)
@@ -33,7 +58,7 @@ public class BattleManager : MonoBehaviour
         return true;
     }
 
-    public static void RemoveResources(Team team, UnitClass productionUnit)
+    public static void RemoveResources(Player player, UnitClass productionUnit)
     {
         
     }

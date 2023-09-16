@@ -14,11 +14,10 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Unit target;
 
-    private Team team = Team.None;
+    private Player owner;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
-    [SerializeField]
     private UnitBasisStats basisStats;
     private UnitAttributes currentStats = new UnitAttributes()
     {
@@ -47,12 +46,12 @@ public class Unit : MonoBehaviour
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
-    public void Initialize(Team team, UnitBasisStats stats)
+    public void Initialize(Player player, UnitBasisStats stats)
     {
-        if (this.team != Team.None)
+        if (owner != null)
             throw new Exception("You cannot initialize an already initialized unit!");
 
-        this.team = team;
+        owner = player;
         basisStats = stats;
 
         InitStats();

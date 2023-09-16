@@ -27,3 +27,13 @@ MonoBehaviour:
   Fly:
     ProductionRate: 0
     BasisStats: {fileID: 0}
+  Castle:
+    ProductionRate: 0
+  Hous:
+    ProductionRate: 0
+  Farm:
+    ProductionRate: 3
+  Barrack:
+    ProductionRate: 0
+  Tower:
+    ProductionRate: 0

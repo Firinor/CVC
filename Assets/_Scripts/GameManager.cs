@@ -6,8 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private BattleBalanceScriptableObject battleBalance;
-    [SerializeField]
     private BattleBalance balance;
     [SerializeField]
     private UnitDataBase units;
@@ -16,8 +14,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        balance = new BattleBalance(battleBalance);
-
         Dictionary<UnitClass, GameObject> unitsDictionary = new();
         foreach (var pair in unitsPrefabs)
             unitsDictionary.Add(pair.unitClass, pair.unit);
