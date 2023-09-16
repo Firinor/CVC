@@ -9,7 +9,7 @@ public class Castle : Building
     private float productionRate;
     [SerializeField]
     private UnitClass productionUnit;
-    private bool isNeedNewUnit;
+    private bool isNeedNewUnit = true;
 
     private void FixedUpdate()
     {
@@ -24,10 +24,11 @@ public class Castle : Building
 
         if(productionRate > 0)
         {
-            productionRate -= productionSpeed * Time.deltaTime;
+            productionRate -= productionSpeed * Time.fixedDeltaTime;
             if (productionRate <= 0)
             {
                 CreateNewUnit();
+                NeedNewUnit();
             }
         }
     }
@@ -40,12 +41,12 @@ public class Castle : Building
 
     private void CreateNewUnit()
     {
-        Unit newUnit = Instantiate<Unit>(
+        GameObject newUnit = Instantiate(
             UnitDataBase.GetUnit(productionUnit),
             transform.position, 
             Quaternion.identity, 
             BattleManager.GetTeamParent(team));
 
-        newUnit.Initialize(team);
+        newUnit.GetComponent<Unit>().Initialize(team, BattleBalance.GetStats(productionUnit));
     }
 }

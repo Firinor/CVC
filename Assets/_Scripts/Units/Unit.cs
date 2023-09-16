@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Unit target;
 
-    private Team team;
+    private Team team = Team.None;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
@@ -30,8 +30,6 @@ public class Unit : MonoBehaviour
 
     public ReactiveCollection<Buff> Buffs;
 
-    public BoolReactiveProperty isReady;
-    public BoolReactiveProperty isReadyToBuff;
     public bool IsDead => currentStats[Attribute.Health].Value <= 0;
 
     private float HealthPoint
@@ -49,12 +47,14 @@ public class Unit : MonoBehaviour
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
-    public void Initialize(Team team)
+    public void Initialize(Team team, UnitBasisStats stats)
     {
         if (this.team != Team.None)
             throw new Exception("You cannot initialize an already initialized unit!");
 
         this.team = team;
+        basisStats = stats;
+
         InitStats();
     }
 
@@ -188,7 +188,5 @@ public class Unit : MonoBehaviour
         buff.Start(this, buffBehaviour);
 
         Buffs.Add(buff);
-
-        isReadyToBuff.Value = false;
     }
 }
