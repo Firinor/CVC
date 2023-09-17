@@ -8,6 +8,8 @@ public class Player
     private Units units = new Units();
     private Tañtic taktics = new Tañtic();
 
+    public bool IsAlive => buildings.Castle.IsAlive;
+
     private class Resourses
     {
         public int Food;

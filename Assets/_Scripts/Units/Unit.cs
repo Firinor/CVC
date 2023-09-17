@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
+using UnityEngine.AI;
 using Utility;
 using Utility.UniRx;
 using Zenject;
@@ -11,10 +12,12 @@ public class Unit : MonoBehaviour
 {
     [Inject]
     private GameManager gameManager;
+    private Player owner;
+    [field: SerializeField]
+    public NavMeshAgent NavMeshAgent { get; private set; }
     [SerializeField]
     private Unit target;
-
-    private Player owner;
+    public Vector3 Target => target.transform.position;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
@@ -24,13 +27,10 @@ public class Unit : MonoBehaviour
         {Attribute.Attack, new LimitedFloatReactiveProperty() },
         {Attribute.Defence, new LimitedFloatReactiveProperty() },
         {Attribute.Health, new LimitedFloatReactiveProperty() },
-        {Attribute.Energy, new LimitedFloatReactiveProperty() } 
+        {Attribute.Energy, new LimitedFloatReactiveProperty() }
     };
-
     public ReactiveCollection<Buff> Buffs;
-
     public bool IsDead => currentStats[Attribute.Health].Value <= 0;
-
     private float HealthPoint
     {
         get { return currentStats[Attribute.Health].Value; }
@@ -41,8 +41,8 @@ public class Unit : MonoBehaviour
                 ToDead();
         }
     }
-
-
+    public bool IsEnemyAlive => BattleManager.IsEnemyAlive(owner);
+    public bool IsOwnerAlive => BattleManager.IsOwnerAlive(owner);
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
@@ -63,7 +63,6 @@ public class Unit : MonoBehaviour
         InitHealth();
         InitDefence();
     }
-
     private void InitAttack()
     {
         var stat = currentStats[Attribute.Attack];
@@ -88,8 +87,11 @@ public class Unit : MonoBehaviour
         stat.Value = basisStats.DefenceRate;
 
     }
-
     private void ToDead()
+    {
+        throw new NotImplementedException();
+    }
+    public bool IsEnemyInRange()
     {
         throw new NotImplementedException();
     }
@@ -105,14 +107,12 @@ public class Unit : MonoBehaviour
 
         float totalDamageDone = target.TakeHit(damage);
     }
-
     private AttackData GenerateAttackData()
     {
         return new AttackData() { 
             {Attribute.Attack, currentStats[Attribute.Attack].Value} 
         };
     }
-
     private void BoostWithBuffs(ref AttackData damage)
     {
         foreach(Buff buff in Buffs)
@@ -120,7 +120,6 @@ public class Unit : MonoBehaviour
             buff.Decorate(damage);
         }
     }
-
     public void AddToAttribute(KeyValuePair<Attribute, float> attribute)
     {
         AddToAttribute(attribute.Key, attribute.Value);
@@ -129,18 +128,10 @@ public class Unit : MonoBehaviour
     {
         AddToAttribute(attribute.Key, -attribute.Value);
     }
-
     private void AddToAttribute(Attribute attribute, float value)
     {
         currentStats[attribute].Value += value;
     }
-
-
-    public void DeactivateAll()
-    {
-
-    }
-
     private float TakeHit(AttackData attackData)
     {
         float totalDamageDone = 0;
@@ -168,7 +159,6 @@ public class Unit : MonoBehaviour
 
         return lostHealthPoint;
     }
-
     private BuffCore[] GetCurrentBuffCores()
     {
         BuffCore[] result = new BuffCore[Buffs.Count];
@@ -180,12 +170,16 @@ public class Unit : MonoBehaviour
 
         return result;
     }
-
     public void AddBuff(BuffCore buffBehaviour)
     {
         Buff buff = new Buff();
         buff.Start(this, buffBehaviour);
 
         Buffs.Add(buff);
+    }
+
+    public void SetBehavior(UnitBehaviour<Unit> idle)
+    {
+        throw new NotImplementedException();
     }
 }

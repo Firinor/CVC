@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -11,10 +12,11 @@ public class BattleBalance
 
     private static BattleBalance instance;
 
-    public BattleBalance(BattleBalanceScriptableObject battleBalance)
-    {
+    public IEnumerable<BuildingPosition> DefaultBuildings => startBuildingGrig.buildings;
+
+    public void Initialize()
+    {   
         instance = this;
-        this.battleBalance = battleBalance;
     }
 
     public static float GetProductionRate(UnitClass productionUnit)

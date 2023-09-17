@@ -5,6 +5,7 @@ public class Building : MonoBehaviour
 {
     [SerializeField]
     private float currentHealth;
+    public bool IsAlive => currentHealth > 0;
 
     protected Player owner;
 

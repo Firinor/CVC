@@ -1,8 +1,14 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 public class BattleManager : MonoBehaviour
 {
+    [Inject]
+    private GameManager gameManager;
+    [SerializeField]
+    private bool IsClearLevel;
+
     [SerializeField]
     private Player redPlayer;
     [SerializeField]
@@ -28,8 +34,40 @@ public class BattleManager : MonoBehaviour
 
     private void BuildFirstBuildings()
     {
-        CleanLevel();
+        if (IsClearLevel)
+        {
+            CleanLevel();
+            BulidDefault();
+        }
+    }
 
+    private void BulidDefault()
+    {
+        foreach (BuildingPosition buildingPosition in gameManager.DefaultBuildings)
+        {
+            var pos = new Vector3Int(buildingPosition.X, buildingPosition.Y);
+            Instantiate(buildingPosition.Building, grid.CellToWorld(pos), Quaternion.identity, gridTransform);
+        }
+    }
+
+    public static bool IsEnemyAlive(Player requester)
+    {
+        if (requester == instance.redPlayer)
+            return instance.bluePlayer.IsAlive;
+        else if (requester == instance.bluePlayer)
+            return instance.redPlayer.IsAlive;
+        else
+            throw new Exception("The requesting player does not have a designated opponent!");
+    }
+
+    public static bool IsOwnerAlive(Player requester)
+    {
+        if (requester == instance.redPlayer)
+            return instance.redPlayer.IsAlive;
+        else if (requester == instance.bluePlayer)
+            return instance.bluePlayer.IsAlive;
+        else
+            throw new Exception("The requesting player does not have an assigned place in the battle!");
     }
 
     private void CleanLevel()
