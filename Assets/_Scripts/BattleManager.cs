@@ -6,12 +6,14 @@ public class BattleManager : MonoBehaviour
 {
     [Inject]
     private GameManager gameManager;
+    [Inject]
+    private BuildingsFactory buildingsFactory;
     [SerializeField]
     private bool IsClearLevel;
 
-    [SerializeField]
+    [Inject(Id = "RedPlayer")]
     private Player redPlayer;
-    [SerializeField]
+    [Inject(Id = "BluePlayer")]
     private Player bluePlayer;
     [SerializeField]
     private Transform redTeamParent;
@@ -20,15 +22,11 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private Transform gridTransform;
 
-    private static BattleManager instance;
     [SerializeField]
     private Grid grid;
 
     private void Awake()
     {
-        instance = this;
-        redPlayer = new Player();
-        bluePlayer = new Player();
         BuildFirstBuildings();
     }
 
@@ -37,35 +35,26 @@ public class BattleManager : MonoBehaviour
         if (IsClearLevel)
         {
             CleanLevel();
-            BulidDefault();
+            buildingsFactory.BulidDefault();
         }
     }
 
-    private void BulidDefault()
+    public bool IsEnemyAlive(Player requester)
     {
-        foreach (BuildingPosition buildingPosition in gameManager.DefaultBuildings)
-        {
-            var pos = new Vector3Int(buildingPosition.X, buildingPosition.Y);
-            Instantiate(buildingPosition.Building, grid.CellToWorld(pos), Quaternion.identity, gridTransform);
-        }
-    }
-
-    public static bool IsEnemyAlive(Player requester)
-    {
-        if (requester == instance.redPlayer)
-            return instance.bluePlayer.IsAlive;
-        else if (requester == instance.bluePlayer)
-            return instance.redPlayer.IsAlive;
+        if (requester == redPlayer)
+            return bluePlayer.IsAlive;
+        else if (requester == bluePlayer)
+            return redPlayer.IsAlive;
         else
             throw new Exception("The requesting player does not have a designated opponent!");
     }
 
-    public static bool IsOwnerAlive(Player requester)
+    public bool IsOwnerAlive(Player requester)
     {
-        if (requester == instance.redPlayer)
-            return instance.redPlayer.IsAlive;
-        else if (requester == instance.bluePlayer)
-            return instance.bluePlayer.IsAlive;
+        if (requester == redPlayer)
+            return redPlayer.IsAlive;
+        else if (requester == bluePlayer)
+            return bluePlayer.IsAlive;
         else
             throw new Exception("The requesting player does not have an assigned place in the battle!");
     }
@@ -77,26 +66,26 @@ public class BattleManager : MonoBehaviour
         GameCleaner.DeleteAllChild(gridTransform);
     }
 
-    public static Player GetPlayer()
+    public Player GetPlayer()
     {
-        return instance.redPlayer;
+        return redPlayer;
     }
-    public static Transform GetParentTransform(Player player)
+    public Transform GetParentTransform(Player player)
     {
-        if(player == instance.redPlayer)
-            return instance.redTeamParent;
-        else if (player == instance.bluePlayer)
-            return instance.blueTeamParent;
+        if(player == redPlayer)
+            return redTeamParent;
+        else if (player == bluePlayer)
+            return blueTeamParent;
         else
             throw new Exception("Could not find a transform for the specified command!");
     }
 
-    public static bool IsEnoughResources(UnitClass productionUnit)
+    public bool IsEnoughResources(UnitClass productionUnit)
     {
         return true;
     }
 
-    public static void RemoveResources(Player player, UnitClass productionUnit)
+    public void RemoveResources(Player player, UnitClass productionUnit)
     {
         
     }

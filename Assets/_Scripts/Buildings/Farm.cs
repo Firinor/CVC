@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Farm : Building
@@ -11,7 +9,6 @@ public class Farm : Building
 
     private void Start()
     {
-        Initialize();
         owner.AddFarm(this);
     }
 
@@ -19,7 +16,7 @@ public class Farm : Building
     {
         if (productionRate <= 0 && !IsFoodReady)
         {
-            productionRate += BattleBalance.GetFarmRate();
+            productionRate += battleBalance.GetFarmRate();
         }
 
         if (productionRate > 0)

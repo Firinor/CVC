@@ -1,36 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 [Serializable]
 public class BattleBalance
 {
-    [SerializeField]
+    [Inject]
     private BattleBalanceScriptableObject battleBalance;
-    [SerializeField]
+    [Inject]
     private StartBuildingScriptableObject startBuildingGrig;
-
-    private static BattleBalance instance;
 
     public IEnumerable<BuildingPosition> DefaultBuildings => startBuildingGrig.buildings;
 
-    public void Initialize()
-    {   
-        instance = this;
+    public float GetProductionRate(UnitClass productionUnit)
+    {
+        return battleBalance.GetProductionRate(productionUnit);
     }
 
-    public static float GetProductionRate(UnitClass productionUnit)
+    public float GetFarmRate()
     {
-        return instance.battleBalance.GetProductionRate(productionUnit);
+        return battleBalance.GetFarmRate();
     }
 
-    public static float GetFarmRate()
+    public UnitBasisStats GetStats(UnitClass productionUnit)
     {
-        return instance.battleBalance.GetFarmRate();
-    }
-
-    public static UnitBasisStats GetStats(UnitClass productionUnit)
-    {
-        return instance.battleBalance.GetStats(productionUnit);
+        return battleBalance.GetStats(productionUnit);
     }
 }

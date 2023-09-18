@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
+    [Inject]
     private BattleBalance balance;
     [SerializeField]
     private UnitDataBase units;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        balance.Initialize();
+        //balance.Initialize();
 
         Dictionary<UnitClass, GameObject> unitsDictionary = new();
         foreach (var pair in unitsPrefabs)

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a483dc6de3a1e8c46b79563fde87916c, type: 3}
+  m_Name: _ScriptableInstaller
+  m_EditorClassIdentifier: 
+  battleBalance: {fileID: 11400000, guid: 0873a817225f3ae4ea0ce731e8c59627, type: 2}
+  startBuildingGrig: {fileID: 11400000, guid: 9c3a55a62b396f14eaf0c84a9f865a25, type: 2}

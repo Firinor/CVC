@@ -12,6 +12,9 @@ public class Unit : MonoBehaviour
 {
     [Inject]
     private GameManager gameManager;
+    [Inject]
+    private BattleManager battleManager;
+
     private Player owner;
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
@@ -41,8 +44,8 @@ public class Unit : MonoBehaviour
                 ToDead();
         }
     }
-    public bool IsEnemyAlive => BattleManager.IsEnemyAlive(owner);
-    public bool IsOwnerAlive => BattleManager.IsOwnerAlive(owner);
+    public bool IsEnemyAlive => battleManager.IsEnemyAlive(owner);
+    public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 

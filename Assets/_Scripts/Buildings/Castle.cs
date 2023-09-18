@@ -1,35 +1,37 @@
+using UniRx;
 using UnityEngine;
 
 public class Castle : Building
 {
     [SerializeField]
     private float productionSpeed;
-    private float productionRate;
+    public FloatReactiveProperty ProductionRate = new();
     [SerializeField]
     private UnitClass productionUnit;
     private bool isNeedNewUnit = true;
 
+    public float MaxValue => battleBalance.GetProductionRate(productionUnit);
+
     private void Start()
     {
-        Initialize();
         owner.AddCastle(this);
     }
 
     private void FixedUpdate()
     {
-        if(productionRate <= 0 && isNeedNewUnit)
+        if(ProductionRate.Value <= 0 && isNeedNewUnit)
         {
-            if (BattleManager.IsEnoughResources(productionUnit)) 
+            if (battleManager.IsEnoughResources(productionUnit)) 
             {
-                BattleManager.RemoveResources(owner, productionUnit);
-                productionRate += BattleBalance.GetProductionRate(productionUnit); 
+                battleManager.RemoveResources(owner, productionUnit);
+                ProductionRate.Value += MaxValue; 
             }
         }
 
-        if(productionRate > 0)
+        if(ProductionRate.Value > 0)
         {
-            productionRate -= productionSpeed * Time.fixedDeltaTime;
-            if (productionRate <= 0)
+            ProductionRate.Value -= productionSpeed * Time.fixedDeltaTime;
+            if (ProductionRate.Value <= 0)
             {
                 CreateNewUnit();
                 NeedNewUnit();
@@ -49,8 +51,8 @@ public class Castle : Building
             UnitDataBase.GetUnit(productionUnit),
             transform.position, 
             Quaternion.identity, 
-            BattleManager.GetParentTransform(owner));
+            battleManager.GetParentTransform(owner));
 
-        newUnit.GetComponent<Unit>().Initialize(owner, BattleBalance.GetStats(productionUnit));
+        newUnit.GetComponent<Unit>().Initialize(owner, battleBalance.GetStats(productionUnit));
     }
 }
