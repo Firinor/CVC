@@ -1,15 +1,19 @@
 using UnityEngine;
 
-public class Farm : Building
+public class ResourseCreator : Building
 {
     [SerializeField]
     private float productionSpeed;
     private float productionRate;
     public bool IsFoodReady;
+    [SerializeField]
+    private Resource resource;
+    [SerializeField]
+    private BuildingClass buildingClass;
 
     private void Start()
     {
-        owner.AddFarm(this);
+        owner.AddBuilding(buildingClass, this);
     }
 
     private void FixedUpdate()

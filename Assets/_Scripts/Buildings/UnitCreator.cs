@@ -1,20 +1,22 @@
 using UniRx;
 using UnityEngine;
 
-public class Castle : Building
+public class UnitCreator : Building
 {
     [SerializeField]
     private float productionSpeed;
     public FloatReactiveProperty ProductionRate = new();
     [SerializeField]
     private UnitClass productionUnit;
+    [SerializeField]
+    private BuildingClass buildingClass;
     private bool isNeedNewUnit = true;
 
     public float MaxValue => battleBalance.GetProductionRate(productionUnit);
 
     private void Start()
     {
-        owner.AddCastle(this);
+        owner.AddBuilding(buildingClass, this);
     }
 
     private void FixedUpdate()

@@ -9,7 +9,7 @@ namespace Observers
         [SerializeField]
         private Slider slider;
         [SerializeField]
-        private Castle castle;
+        private UnitCreator castle;
 
         public void OnCompleted()
         {

@@ -19,7 +19,11 @@ public class BuildingsFactory : MonoBehaviour, IFactory<BuildingParams, Building
             Quaternion.identity,
             grid.transform);
 
-        return newBuilding.GetComponent<Building>();
+        Building result = newBuilding.GetComponent<Building>();
+
+        result.Initialize(param.Owner);
+
+        return result;
     }
 
     public void BulidDefault()
@@ -27,7 +31,7 @@ public class BuildingsFactory : MonoBehaviour, IFactory<BuildingParams, Building
         foreach (BuildingPosition buildingPosition in gameManager.DefaultBuildings)
         {
             var pos = new Vector3Int(buildingPosition.X, buildingPosition.Y);
-            var param = new BuildingParams() { Building = buildingPosition.Building, Position = pos };
+            var param = new BuildingParams() { Building = buildingPosition.Building, Position = pos, Owner = container.ResolveId<Player>("RedPlayer") };
             Create(param);
         }
     }
@@ -37,4 +41,5 @@ public class BuildingParams
 {
     public Vector3Int Position;
     public GameObject Building;
+    public Player Owner;
 }

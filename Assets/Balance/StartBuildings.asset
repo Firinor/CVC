@@ -22,6 +22,3 @@ MonoBehaviour:
   - X: -8
     Y: 0
     Building: {fileID: 6853212104247236501, guid: 6816d0f329d17c149b90499cacbaf2c0, type: 3}
-  - X: -5
-    Y: 0
-    Building: {fileID: 6853212104247236501, guid: ca014485f44bcea47988a28e1f3af65b, type: 3}
