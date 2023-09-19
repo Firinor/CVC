@@ -18,6 +18,9 @@ public class Unit : MonoBehaviour
     private Player owner;
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
+    private UnitPattern behavior;
+    [SerializeField]
+    private UnitBehaviour<Unit> startBehaviour;
     [SerializeField]
     private Unit target;
     public Vector3 Target => target.transform.position;
@@ -90,6 +93,17 @@ public class Unit : MonoBehaviour
         stat.Value = basisStats.DefenceRate;
 
     }
+
+    public void Awake()
+    {
+        NavMeshAgent = GetComponent<NavMeshAgent>();
+        behavior = new UnitPattern(startBehaviour, this);
+    }
+    private void FixedUpdate()
+    {
+        behavior.Tick();
+    }
+
     private void ToDead()
     {
         throw new NotImplementedException();
@@ -98,6 +112,8 @@ public class Unit : MonoBehaviour
     {
         throw new NotImplementedException();
     }
+
+
     public void Attack()
     {
         //if(MissCheck()) return;
@@ -181,8 +197,8 @@ public class Unit : MonoBehaviour
         Buffs.Add(buff);
     }
 
-    public void SetBehavior(UnitBehaviour<Unit> idle)
+    public void SetBehavior(UnitBehaviour<Unit> newBehavior)
     {
-        throw new NotImplementedException();
+        behavior.SetState(newBehavior);
     }
 }

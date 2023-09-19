@@ -2,7 +2,7 @@
 
 namespace EnemyBehaviourNamespace
 {
-    [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/MoveUnitBehavior")]
+    [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/Move")]
     public class Move : UnitBehaviour<Unit>
     {
         [Header("Behavior transitions")]
@@ -16,6 +16,7 @@ namespace EnemyBehaviourNamespace
                 unit.SetBehavior(idle);
                 return;
             }
+
 
             unit.NavMeshAgent.SetDestination(unit.Target);
         }

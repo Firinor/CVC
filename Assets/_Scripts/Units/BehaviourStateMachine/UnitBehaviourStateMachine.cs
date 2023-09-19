@@ -1,9 +1,9 @@
-public abstract class UnitBehaviorStateMachine<TBehaviour, TUnit> where TBehaviour : UnitBehaviour<TUnit> where TUnit : Unit
+public class UnitBehaviourStateMachine<TBehaviour, TUnit> where TBehaviour : UnitBehaviour<TUnit> where TUnit : Unit
 { 
     public TBehaviour currentBehaviour { get; protected set; }
     protected TUnit unit;
 
-    public UnitBehaviorStateMachine(TBehaviour startBehavior, TUnit unit)
+    public UnitBehaviourStateMachine(TBehaviour startBehavior, TUnit unit)
     {
         currentBehaviour = startBehavior;
         this.unit = unit;
@@ -20,5 +20,12 @@ public abstract class UnitBehaviorStateMachine<TBehaviour, TUnit> where TBehavio
     public virtual void Tick()
     {
         currentBehaviour.Tick(unit);
+    }
+}
+
+public class UnitPattern : UnitBehaviourStateMachine<UnitBehaviour<Unit>, Unit>
+{
+    public UnitPattern(UnitBehaviour<Unit> startBehavior, Unit unit) : base(startBehavior, unit)
+    {
     }
 }
