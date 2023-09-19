@@ -1,18 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public class MoveToResourse : MonoBehaviour
+[CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
+public class MoveToResourse : UnitBehaviour<Unit>
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Behavior transitions")]
+    [SerializeField]
+    private UnitBehaviour<Unit> toWork;
+
+    public override void Enter(Unit unit)
     {
-        
+        unit.FindNearestResources();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Tick(Unit unit)
     {
-        
+        if (unit.IsNearTarget)
+        {
+            unit.SetBehavior(toWork);
+            return;
+        }
+
+        unit.NavMeshAgent.SetDestination(unit.Target);
     }
 }

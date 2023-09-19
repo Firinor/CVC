@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class Player
 {
@@ -7,18 +9,36 @@ public class Player
     private Buildings buildings = new Buildings();
     private Units units = new Units();
     private Tañtic taktics = new Tañtic();
+    private Dictionary<Unit, Building> unitWork = new();
 
     public bool IsAlive => buildings.Castle.IsAlive;
 
+    public Vector3 CastlePosition => buildings.Castle.transform.position;
+
+    #region Resourses
     private class Resourses
     {
         public int Food;
         public int Mineral;
     }
+    public Transform FindNearestResources()
+    {
+        var result = from farm in buildings.FreeFarms
+                     orderby farm.Distance()
+                     select farm;
+
+        Building resultFarm = result.First();
+
+        buildings.FreeFarms.Remove(resultFarm);
+
+        return resultFarm.Entrance;
+    }
+    #endregion
     #region Buildings
     private class Buildings
     {
         public Building Castle;
+        public List<Building> FreeFarms = new();
         public List<Building> Farms = new();
         public List<Building> Barracks = new();
         public List<Building> Towers = new();
@@ -33,6 +53,7 @@ public class Player
                 buildings.Castle = building;
                 return;
             case BuildingClass.Farm:
+                buildings.FreeFarms.Add(building);
                 buildings.Farms.Add(building);
                 return;
             case BuildingClass.Barrack:

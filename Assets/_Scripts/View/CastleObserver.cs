@@ -22,7 +22,7 @@ namespace Observers
 
         public void OnNext(float value)
         {
-            slider.value = value;
+            slider.value = slider.maxValue - value;
         }
 
         private void OnEnable()

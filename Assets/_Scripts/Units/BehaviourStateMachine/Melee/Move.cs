@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EnemyBehaviourNamespace
+namespace UnitBehaviourNamespace
 {
     [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/Move")]
     public class Move : UnitBehaviour<Unit>

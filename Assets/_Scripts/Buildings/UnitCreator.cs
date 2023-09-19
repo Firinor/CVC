@@ -9,6 +9,8 @@ public class UnitCreator : Building
     [SerializeField]
     private UnitClass productionUnit;
     [SerializeField]
+    private UnitBehaviour<Unit> startBehaviour;
+    [SerializeField]
     private BuildingClass buildingClass;
     private bool isNeedNewUnit = true;
 
@@ -55,6 +57,6 @@ public class UnitCreator : Building
             Quaternion.identity, 
             battleManager.GetParentTransform(owner));
 
-        newUnit.GetComponent<Unit>().Initialize(owner, battleBalance.GetStats(productionUnit));
+        newUnit.GetComponent<Unit>().Initialize(owner, battleBalance.GetStats(productionUnit), startBehaviour);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace EnemyBehaviourNamespace
+namespace UnitBehaviourNamespace
 {
     [CreateAssetMenu(fileName = "AttackUnitBehavior", menuName = "GameScriptable/UnitBehaviors/EnemyAttackBehavior")]
     public class Attack : UnitBehaviour<Unit>

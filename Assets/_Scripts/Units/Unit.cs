@@ -16,14 +16,15 @@ public class Unit : MonoBehaviour
     private BattleManager battleManager;
 
     private Player owner;
+
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
     private UnitPattern behavior;
     [SerializeField]
     private UnitBehaviour<Unit> startBehaviour;
     [SerializeField]
-    private Unit target;
-    public Vector3 Target => target.transform.position;
+    private Transform target;
+    public Vector3 Target => target.position;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
@@ -49,16 +50,19 @@ public class Unit : MonoBehaviour
     }
     public bool IsEnemyAlive => battleManager.IsEnemyAlive(owner);
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
+    public bool IsNearTarget => Vector3.Distance(transform.position, Target) < 0.1f;
+
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
-    public void Initialize(Player player, UnitBasisStats stats)
+    public void Initialize(Player player, UnitBasisStats stats, UnitBehaviour<Unit> startBehaviour)
     {
         if (owner != null)
             throw new Exception("You cannot initialize an already initialized unit!");
 
         owner = player;
         basisStats = stats;
+        behavior = new UnitPattern(startBehaviour, this);
 
         InitStats();
     }
@@ -93,11 +97,14 @@ public class Unit : MonoBehaviour
         stat.Value = basisStats.DefenceRate;
 
     }
+    public void FindNearestResources()
+    {
+        target = owner.FindNearestResources();
+    }
 
     public void Awake()
     {
         NavMeshAgent = GetComponent<NavMeshAgent>();
-        behavior = new UnitPattern(startBehaviour, this);
     }
     private void FixedUpdate()
     {
@@ -124,7 +131,7 @@ public class Unit : MonoBehaviour
         //BoostWithCrit(damage);
         BoostWithBuffs(ref damage);
 
-        float totalDamageDone = target.TakeHit(damage);
+        //float totalDamageDone = target.TakeHit(damage);
     }
     private AttackData GenerateAttackData()
     {
