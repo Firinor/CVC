@@ -143,7 +143,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Castle2_0
+      name: Barrack
       rect:
         serializedVersion: 2
         x: 133
@@ -151,7 +151,7 @@ TextureImporter:
         width: 258
         height: 222
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -164,7 +164,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Castle2_15
+      name: Mine
       rect:
         serializedVersion: 2
         x: 1041
@@ -172,7 +172,7 @@ TextureImporter:
         width: 256
         height: 187
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -185,7 +185,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Castle2_21
+      name: Lab
       rect:
         serializedVersion: 2
         x: 1687
@@ -193,7 +193,7 @@ TextureImporter:
         width: 229
         height: 237
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -206,7 +206,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Castle2_1
+      name: House
       rect:
         serializedVersion: 2
         x: 704
@@ -214,7 +214,7 @@ TextureImporter:
         width: 211
         height: 227
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -227,7 +227,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Castle2_2
+      name: Tower
       rect:
         serializedVersion: 2
         x: 544
@@ -235,7 +235,7 @@ TextureImporter:
         width: 102
         height: 216
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -258,21 +258,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Castle2_0: -1962466206
-      Castle2_1: -1332313900
+      Barrack: -1962466206
       Castle2_10: 1413729155
       Castle2_11: 1326680850
       Castle2_12: 1448255474
       Castle2_13: -171189829
       Castle2_14: -422779655
-      Castle2_15: 1733713898
       Castle2_16: -697391532
       Castle2_17: 1803166141
       Castle2_18: -1540172227
       Castle2_19: 1749428512
-      Castle2_2: -1035298182
       Castle2_20: 429008266
-      Castle2_21: 954676135
       Castle2_22: -816373661
       Castle2_23: -593305896
       Castle2_24: 1472738860
@@ -297,6 +293,10 @@ TextureImporter:
       Castle2_7: 2075197003
       Castle2_8: -931075590
       Castle2_9: -1629278100
+      House: -1332313900
+      Lab: 954676135
+      Mine: 1733713898
+      Tower: -1035298182
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

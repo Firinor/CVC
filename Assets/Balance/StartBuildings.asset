@@ -18,7 +18,7 @@ MonoBehaviour:
     Building: {fileID: 6853212104247236501, guid: 2678eb199388b2946a1086b90018e8b5, type: 3}
   - X: -6
     Y: 0
-    Building: {fileID: 6853212104247236501, guid: eb8ad86100803bc4f82b7742de3bb185, type: 3}
+    Building: {fileID: 6853212104247236501, guid: 2379c07c4df99644b94e62ee1172e278, type: 3}
   - X: -8
     Y: 0
     Building: {fileID: 6853212104247236501, guid: 6816d0f329d17c149b90499cacbaf2c0, type: 3}

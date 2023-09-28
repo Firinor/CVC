@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BattleBalance", menuName = "GameBalance/BattleBalance")]
 public class BattleBalanceScriptableObject : ScriptableObject
 {
+    public ResourceBattleBalanceStats Food;
+    public ResourceBattleBalanceStats Mineral;
+
     public UnitBattleBalanceStats Worker;
     public UnitBattleBalanceStats Warrior;
     public UnitBattleBalanceStats Archer;
@@ -15,6 +18,19 @@ public class BattleBalanceScriptableObject : ScriptableObject
     public BuildingBattleBalanceStats Farm;
     public BuildingBattleBalanceStats Barrack;
     public BuildingBattleBalanceStats Tower;
+
+    internal float GetProductionRate(Resource resource)
+    {
+        switch (resource)
+        {
+            case Resource.Food:
+                return Food.ProductionRate;
+            case Resource.Mineral:
+                return Mineral.ProductionRate;
+            default:
+                throw new Exception("It is impossible to get data of a non-existent unit class!");
+        }
+    }
 
     public float GetFarmRate()
     {
@@ -38,20 +54,20 @@ public class BattleBalanceScriptableObject : ScriptableObject
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
         }
     }
-    public UnitBasisStats GetStats(UnitClass productionUnit)
+    public UnitBasicStats GetStats(UnitClass productionUnit)
     {
         switch (productionUnit)
         {
             case UnitClass.Worker:
-                return Worker.BasisStats;
+                return Worker.BasicStats;
             case UnitClass.Warrior:
-                return Warrior.BasisStats;
+                return Warrior.BasicStats;
             case UnitClass.Archer:
-                return Archer.BasisStats;
+                return Archer.BasicStats;
             case UnitClass.Mage:
-                return Mage.BasisStats;
+                return Mage.BasicStats;
             case UnitClass.Fly:
-                return Fly.BasisStats;
+                return Fly.BasicStats;
             default:
                 throw new Exception("It is impossible to get stats of a non-existent unit class!");
         }

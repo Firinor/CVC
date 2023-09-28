@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3932516410836062385}
   - component: {fileID: 3932516410836062386}
-  - component: {fileID: 3009821939875427045}
+  - component: {fileID: 7475086346407286919}
   m_Layer: 5
-  m_Name: ProgressBar
+  m_Name: ResourceProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 10
   m_TargetDisplay: 0
---- !u!114 &3009821939875427045
+--- !u!114 &7475086346407286919
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,11 +70,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3932516410836062389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b563a2b5f7bde4d82cdb66f854a9a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 32789a7ee9d0b384eb4ea7e5e5e61c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 3932516411230120423}
-  castle: {fileID: 0}
+  creator: {fileID: 0}
 --- !u!1 &3932516411114157926
 GameObject:
   m_ObjectHideFlags: 0

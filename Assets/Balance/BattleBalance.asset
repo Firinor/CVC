@@ -12,21 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7b285b3cc7df5048acdea634ced42cd, type: 3}
   m_Name: BattleBalance
   m_EditorClassIdentifier: 
+  Food:
+    ProductionRate: 4
+  Mineral:
+    ProductionRate: 4
   Worker:
     ProductionRate: 3
-    BasisStats: {fileID: 11400000, guid: 86db707f24a69004e883b608f30a2f1c, type: 2}
+    BasicStats: {fileID: 11400000, guid: 86db707f24a69004e883b608f30a2f1c, type: 2}
   Warrior:
-    ProductionRate: 0
-    BasisStats: {fileID: 0}
+    ProductionRate: 15
+    BasicStats: {fileID: 11400000, guid: 47b56e49cd844bc4698746a7436b2abd, type: 2}
   Archer:
-    ProductionRate: 0
-    BasisStats: {fileID: 0}
+    ProductionRate: 15
+    BasicStats: {fileID: 0}
   Mage:
     ProductionRate: 0
-    BasisStats: {fileID: 0}
+    BasicStats: {fileID: 0}
   Fly:
     ProductionRate: 0
-    BasisStats: {fileID: 0}
+    BasicStats: {fileID: 0}
   Castle:
     ProductionRate: 0
   Hous:

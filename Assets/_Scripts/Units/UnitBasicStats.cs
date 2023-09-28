@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "UnitStats", menuName = "GameBalance/UnitStats")]
-public class UnitBasisStats : ScriptableObject
+public class UnitBasicStats : ScriptableObject
 {
     public float Attack = 15;
 

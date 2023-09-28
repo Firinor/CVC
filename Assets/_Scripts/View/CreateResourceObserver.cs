@@ -1,15 +1,15 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Observers
 {
-    public class CastleObserver : MonoBehaviour, IObserver<float>
+    public class CreateResourceObserver : MonoBehaviour, IObserver<float>
     {
         [SerializeField]
         private Slider slider;
         [SerializeField]
-        private UnitCreator castle;
+        private ResourseCreator creator;
 
         public void OnCompleted()
         {
@@ -22,13 +22,13 @@ namespace Observers
 
         public void OnNext(float value)
         {
-            slider.value = slider.maxValue - value;
+            slider.value = value;
         }
 
-        private void OnEnable()
+        private void OnEnter()
         {
-            slider.maxValue = castle.MaxValue;
-            castle.ProductionRate.Subscribe(this);
+            slider.maxValue = creator.WorkRequired;
+            creator.ProductionRate.Subscribe(this);
         }
     }
 }

@@ -1,15 +1,18 @@
+using UniRx;
 using UnityEngine;
 
 public class ResourseCreator : Building
 {
     [SerializeField]
     private float productionSpeed;
-    private float productionRate;
+    public FloatReactiveProperty ProductionRate = new();
     public bool IsFoodReady;
     [SerializeField]
     private Resource resource;
     [SerializeField]
     private BuildingClass buildingClass;
+
+    public float WorkRequired => battleBalance.GetProductionRate(resource);
 
     private void Start()
     {
@@ -18,15 +21,15 @@ public class ResourseCreator : Building
 
     private void FixedUpdate()
     {
-        if (productionRate <= 0 && !IsFoodReady)
+        if (ProductionRate.Value <= 0 && !IsFoodReady)
         {
-            productionRate += battleBalance.GetFarmRate();
+            ProductionRate.Value += battleBalance.GetFarmRate();
         }
 
-        if (productionRate > 0)
+        if (ProductionRate.Value > 0)
         {
-            productionRate -= productionSpeed * Time.fixedDeltaTime;
-            if (productionRate <= 0)
+            ProductionRate.Value -= productionSpeed * Time.fixedDeltaTime;
+            if (ProductionRate.Value <= 0)
             {
                 IsFoodReady = true;
             }

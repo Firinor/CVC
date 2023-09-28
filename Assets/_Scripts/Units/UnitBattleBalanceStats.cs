@@ -4,5 +4,5 @@
 public class UnitBattleBalanceStats
 {
     public float ProductionRate;
-    public UnitBasisStats BasisStats;
+    public UnitBasicStats BasicStats;
 }

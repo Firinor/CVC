@@ -18,12 +18,17 @@ public class BattleBalance
         return battleBalance.GetProductionRate(productionUnit);
     }
 
+    public float GetProductionRate(Resource resource)
+    {
+        return battleBalance.GetProductionRate(resource);
+    }
+
     public float GetFarmRate()
     {
         return battleBalance.GetFarmRate();
     }
 
-    public UnitBasisStats GetStats(UnitClass productionUnit)
+    public UnitBasicStats GetStats(UnitClass productionUnit)
     {
         return battleBalance.GetStats(productionUnit);
     }

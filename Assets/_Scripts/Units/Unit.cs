@@ -28,7 +28,7 @@ public class Unit : MonoBehaviour
 
     [SerializeField]
     private SpriteRenderer unitSprite;
-    private UnitBasisStats basisStats;
+    private UnitBasicStats basisStats;
     private UnitAttributes currentStats = new UnitAttributes()
     {
         {Attribute.Attack, new LimitedFloatReactiveProperty() },
@@ -55,7 +55,7 @@ public class Unit : MonoBehaviour
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
 
-    public void Initialize(Player player, UnitBasisStats stats, UnitBehaviour<Unit> startBehaviour)
+    public void Initialize(Player player, UnitBasicStats stats, UnitBehaviour<Unit> startBehaviour)
     {
         if (owner != null)
             throw new Exception("You cannot initialize an already initialized unit!");
