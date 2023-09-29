@@ -33,6 +33,10 @@ public class Player
 
         return resultFarm.Entrance;
     }
+    public Transform FindNearestWarehouse(Vector3 position)
+    {
+        return buildings.Castle.Entrance;
+    }
     #endregion
     #region Buildings
     private class Buildings

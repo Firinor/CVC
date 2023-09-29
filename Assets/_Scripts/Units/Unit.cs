@@ -51,6 +51,8 @@ public class Unit : MonoBehaviour
     public bool IsEnemyAlive => battleManager.IsEnemyAlive(owner);
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
     public bool IsNearTarget => Vector3.Distance(transform.position, Target) < 0.1f;
+    public bool IsWorkOver => amountOfWork <= 0;
+    private float amountOfWork;
 
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
@@ -102,6 +104,10 @@ public class Unit : MonoBehaviour
         target = owner.FindNearestResources();
     }
 
+    public void FindNearestWarehouse()
+    {
+        target = owner.FindNearestWarehouse(transform.position);
+    }
     public void Awake()
     {
         NavMeshAgent = GetComponent<NavMeshAgent>();
@@ -185,6 +191,16 @@ public class Unit : MonoBehaviour
 
         return lostHealthPoint;
     }
+
+    public void SetAmountOfWork()
+    {
+        amountOfWork = battleManager.GetAmountOfWork(BuildingClass.Farm);
+    }
+    public void Work(float workTime)
+    {
+        amountOfWork -= currentStats[Attribute.Attack].Value * workTime;
+    }
+
     private BuffCore[] GetCurrentBuffCores()
     {
         BuffCore[] result = new BuffCore[Buffs.Count];

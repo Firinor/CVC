@@ -8,6 +8,8 @@ public class BattleManager : MonoBehaviour
     private GameManager gameManager;
     [Inject]
     private BuildingsFactory buildingsFactory;
+    [Inject]
+    private BattleBalance battleBalance;
     [SerializeField]
     private bool IsClearLevel;
 
@@ -88,5 +90,18 @@ public class BattleManager : MonoBehaviour
     public void RemoveResources(Player player, UnitClass productionUnit)
     {
         
+    }
+
+    public float GetAmountOfWork(BuildingClass building)
+    {
+        switch (building)
+        {
+            case BuildingClass.Farm:
+                return battleBalance.GetFarmRate();
+            case BuildingClass.Mine:
+            //return battleBalance.GetMineWork();
+            default:
+                throw new Exception("This class of buildings does not have a definition of the amount of work!");
+        }
     }
 }

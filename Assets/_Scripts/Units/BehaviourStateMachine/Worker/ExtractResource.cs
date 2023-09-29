@@ -1,18 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+[CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
+public class NewBehaviourScript : UnitBehaviour<Unit>
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Behavior transitions")]
+    [SerializeField]
+    private UnitBehaviour<Unit> handOver;
+
+    public override void Enter(Unit unit)
     {
-        
+        unit.SetAmountOfWork();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Tick(Unit unit)
     {
-        
+        if (unit.IsWorkOver)
+        {
+            unit.SetBehavior(handOver);
+            return;
+        }
+
+        unit.Work(Time.fixedDeltaTime);
     }
 }
