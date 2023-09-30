@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class Taсtic
+public class Tactic
 {
     private List<TaсticStep> tactic;
 }

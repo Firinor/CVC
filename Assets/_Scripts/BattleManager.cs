@@ -92,16 +92,16 @@ public class BattleManager : MonoBehaviour
         
     }
 
-    public float GetAmountOfWork(BuildingClass building)
-    {
-        switch (building)
-        {
-            case BuildingClass.Farm:
-                return battleBalance.GetFarmRate();
-            case BuildingClass.Mine:
-            //return battleBalance.GetMineWork();
-            default:
-                throw new Exception("This class of buildings does not have a definition of the amount of work!");
-        }
-    }
+    //public float GetAmountOfWork(BuildingClass building)
+    //{
+    //    switch (building)
+    //    {
+    //        case BuildingClass.Farm:
+    //            return battleBalance.GetFarmRate();
+    //        case BuildingClass.Mine:
+    //        //return battleBalance.GetMineWork();
+    //        default:
+    //            throw new Exception("This class of buildings does not have a definition of the amount of work!");
+    //    }
+    //}
 }

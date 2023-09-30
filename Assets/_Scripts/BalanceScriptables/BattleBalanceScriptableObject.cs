@@ -32,6 +32,19 @@ public class BattleBalanceScriptableObject : ScriptableObject
         }
     }
 
+    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(Resource resource)
+    {
+        switch (resource)
+        {
+            case Resource.Food:
+                return new(Food.AmountOfWork, Food.ResourceCount);
+            case Resource.Mineral:
+                return new(Mineral.AmountOfWork, Mineral.ResourceCount);
+            default:
+                throw new Exception("It is impossible to get data of a non-existent unit class!");
+        }
+    }
+
     public float GetFarmRate()
     {
         return Farm.ProductionRate;

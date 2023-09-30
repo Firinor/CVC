@@ -23,9 +23,9 @@ public class BattleBalance
         return battleBalance.GetProductionRate(resource);
     }
 
-    public float GetFarmRate()
+    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(Resource resource)
     {
-        return battleBalance.GetFarmRate();
+        return battleBalance.GetResourseCreatorData(resource);
     }
 
     public UnitBasicStats GetStats(UnitClass productionUnit)

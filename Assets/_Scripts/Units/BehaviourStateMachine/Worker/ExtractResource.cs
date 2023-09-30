@@ -7,19 +7,13 @@ public class NewBehaviourScript : UnitBehaviour<Unit>
     [SerializeField]
     private UnitBehaviour<Unit> handOver;
 
-    public override void Enter(Unit unit)
-    {
-        unit.SetAmountOfWork();
-    }
-
     public override void Tick(Unit unit)
     {
-        if (unit.IsWorkOver)
+        bool isCompleted = unit.TryCompleteWork(Time.fixedDeltaTime);
+        if (isCompleted)
         {
             unit.SetBehavior(handOver);
             return;
         }
-
-        unit.Work(Time.fixedDeltaTime);
     }
 }

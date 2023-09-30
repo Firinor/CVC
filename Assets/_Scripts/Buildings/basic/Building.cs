@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public abstract class Building : MonoBehaviour
+public abstract class Building : MonoBehaviour, ITarget
 {
     [Inject]
     protected BattleBalance battleBalance;
@@ -14,6 +14,8 @@ public abstract class Building : MonoBehaviour
     [field: SerializeField, NullCheck]
     public Transform Entrance { get; private set; }
     public bool IsAlive => currentHealth > 0;
+
+    public Vector3 Position => Entrance.position;
 
     public float Distance()
     {

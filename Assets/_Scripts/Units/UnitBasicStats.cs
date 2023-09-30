@@ -14,5 +14,7 @@ public class UnitBasicStats : ScriptableObject
     public float Energy;
     public float MaxEnergy = 100;
 
+    public float WorkSpeed = 2;
+
     public int BuffLimit = 2;
 }

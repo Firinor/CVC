@@ -8,7 +8,7 @@ public class Player
     private Resourses resourses;
     private Buildings buildings = new Buildings();
     private Units units = new Units();
-    private Tañtic taktics = new Tañtic();
+    private Tactic taktics = new Tactic();
     private Dictionary<Unit, Building> unitWork = new();
 
     public bool IsAlive => buildings.Castle.IsAlive;
@@ -21,7 +21,7 @@ public class Player
         public int Food;
         public int Mineral;
     }
-    public Transform FindNearestResources()
+    public IResourceCreator FindNearestResources()
     {
         var result = from farm in buildings.FreeFarms
                      orderby farm.Distance()
@@ -31,11 +31,11 @@ public class Player
 
         buildings.FreeFarms.Remove(resultFarm);
 
-        return resultFarm.Entrance;
+        return (IResourceCreator)resultFarm;
     }
-    public Transform FindNearestWarehouse(Vector3 position)
+    public ITarget FindNearestWarehouse(Vector3 position)
     {
-        return buildings.Castle.Entrance;
+        return buildings.Castle;
     }
     #endregion
     #region Buildings

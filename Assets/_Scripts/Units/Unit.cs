@@ -8,7 +8,7 @@ using Utility;
 using Utility.UniRx;
 using Zenject;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour, ITarget
 {
     [Inject]
     private GameManager gameManager;
@@ -19,12 +19,16 @@ public class Unit : MonoBehaviour
 
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
+
     private UnitPattern behavior;
     [SerializeField]
     private UnitBehaviour<Unit> startBehaviour;
     [SerializeField]
-    private Transform target;
-    public Vector3 Target => target.position;
+    private IResourceCreator resourceCreator;
+    private ResourcePack inventory;
+    private ITarget[] targets = new ITarget[2];
+    public Vector3 Target => targets[0] == null ? targets[1].Position : targets[0].Position;
+    public Vector3 Position => transform.position;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
@@ -34,7 +38,8 @@ public class Unit : MonoBehaviour
         {Attribute.Attack, new LimitedFloatReactiveProperty() },
         {Attribute.Defence, new LimitedFloatReactiveProperty() },
         {Attribute.Health, new LimitedFloatReactiveProperty() },
-        {Attribute.Energy, new LimitedFloatReactiveProperty() }
+        {Attribute.Energy, new LimitedFloatReactiveProperty() },
+        {Attribute.WorkSpeed, new LimitedFloatReactiveProperty() }
     };
     public ReactiveCollection<Buff> Buffs;
     public bool IsDead => currentStats[Attribute.Health].Value <= 0;
@@ -51,8 +56,6 @@ public class Unit : MonoBehaviour
     public bool IsEnemyAlive => battleManager.IsEnemyAlive(owner);
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
     public bool IsNearTarget => Vector3.Distance(transform.position, Target) < 0.1f;
-    public bool IsWorkOver => amountOfWork <= 0;
-    private float amountOfWork;
 
     public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
 
@@ -74,6 +77,7 @@ public class Unit : MonoBehaviour
         InitAttack();
         InitHealth();
         InitDefence();
+        InitWorkSpeed();
     }
     private void InitAttack()
     {
@@ -99,14 +103,23 @@ public class Unit : MonoBehaviour
         stat.Value = basisStats.DefenceRate;
 
     }
+    private void InitWorkSpeed()
+    {
+        var stat = currentStats[Attribute.WorkSpeed];
+        stat.MinLimit = true;
+        stat.MinValue = 0;
+        stat.MaxLimit = false;
+        stat.Value = basisStats.WorkSpeed;
+
+    }
     public void FindNearestResources()
     {
-        target = owner.FindNearestResources();
+        targets[1] = owner.FindNearestResources();
     }
 
     public void FindNearestWarehouse()
     {
-        target = owner.FindNearestWarehouse(transform.position);
+        targets[0] = owner.FindNearestWarehouse(transform.position);
     }
     public void Awake()
     {
@@ -191,14 +204,17 @@ public class Unit : MonoBehaviour
 
         return lostHealthPoint;
     }
+    public bool TryCompleteWork(float workTime)
+    {
+        float amountOfWork = currentStats[Attribute.WorkSpeed].Value * workTime;
 
-    public void SetAmountOfWork()
-    {
-        amountOfWork = battleManager.GetAmountOfWork(BuildingClass.Farm);
-    }
-    public void Work(float workTime)
-    {
-        amountOfWork -= currentStats[Attribute.Attack].Value * workTime;
+        if (resourceCreator.TryCompleteWork(amountOfWork))
+        {
+            inventory = resourceCreator.GetResource();
+            return true;
+        }
+
+        return false;
     }
 
     private BuffCore[] GetCurrentBuffCores()
