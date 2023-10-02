@@ -1,18 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
-public class HandOverResources : UnitBehaviour<Unit>
+public class HandOverResources : UnitBehaviour<BasicUnit>
 {
     [Header("Behavior transitions")]
     [SerializeField]
-    private UnitBehaviour<Unit> toResources;
+    private UnitBehaviour<BasicUnit> toResources;
 
-    public override void Enter(Unit unit)
+    public override void Enter(BasicUnit unit)
     {
         unit.FindNearestWarehouse();
     }
 
-    public override void Tick(Unit unit)
+    public override void Tick(BasicUnit unit)
     {
         if (unit.IsNearTarget)
         {

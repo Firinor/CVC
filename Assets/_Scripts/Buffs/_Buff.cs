@@ -8,10 +8,10 @@ namespace Buffs
         public IntReactiveProperty Duration { get; private set; }
         public bool IsOver => Duration.Value <= 0;
 
-        private Unit owner;
+        private BasicUnit owner;
         public BuffCore BuffCore { get; private set; }
 
-        public void Start(Unit unit, BuffCore BuffCore)
+        public void Start(BasicUnit unit, BuffCore BuffCore)
         {
             owner = unit;
             this.BuffCore = BuffCore;

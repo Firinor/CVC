@@ -9,7 +9,7 @@ public class Player
     private Buildings buildings = new Buildings();
     private Units units = new Units();
     private Tactic taktics = new Tactic();
-    private Dictionary<Unit, Building> unitWork = new();
+    private Dictionary<BasicUnit, Building> unitWork = new();
 
     public bool IsAlive => buildings.Castle.IsAlive;
 
@@ -49,18 +49,18 @@ public class Player
         public List<Building> Houses = new();
     }
 
-    public void AddBuilding(BuildingClass buildingClass, Building building)
+    public void AddBuilding(BuildingEnum buildingClass, Building building)
     {
         switch (buildingClass)
         {
-            case BuildingClass.Castle:
+            case BuildingEnum.Castle:
                 buildings.Castle = building;
                 return;
-            case BuildingClass.Farm:
+            case BuildingEnum.Farm:
                 buildings.FreeFarms.Add(building);
                 buildings.Farms.Add(building);
                 return;
-            case BuildingClass.Barrack:
+            case BuildingEnum.Barrack:
                 buildings.Barracks.Add(building);
                 return;
             default:
@@ -71,11 +71,11 @@ public class Player
     #region Units
     private class Units
     {
-        public List<Unit> Workers = new();
-        public List<Unit> Warriors = new();
-        public List<Unit> Archers = new();
-        public List<Unit> Mages = new();
-        public List<Unit> Flys = new();
+        public List<BasicUnit> Workers = new();
+        public List<BasicUnit> Warriors = new();
+        public List<BasicUnit> Archers = new();
+        public List<BasicUnit> Mages = new();
+        public List<BasicUnit> Flys = new();
     }
     #endregion
 }

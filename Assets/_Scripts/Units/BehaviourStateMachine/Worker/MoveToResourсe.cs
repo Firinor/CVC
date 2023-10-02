@@ -1,18 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
-public class MoveToResourse : UnitBehaviour<Unit>
+public class MoveToResourse : UnitBehaviour<BasicUnit>
 {
     [Header("Behavior transitions")]
     [SerializeField]
-    private UnitBehaviour<Unit> toWork;
+    private UnitBehaviour<BasicUnit> toWork;
 
-    public override void Enter(Unit unit)
+    public override void Enter(BasicUnit unit)
     {
         unit.FindNearestResources();
     }
 
-    public override void Tick(Unit unit)
+    public override void Tick(BasicUnit unit)
     {
         if (unit.IsNearTarget)
         {

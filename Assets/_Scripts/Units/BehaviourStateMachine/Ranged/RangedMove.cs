@@ -3,15 +3,15 @@
 namespace EnemyBehaviourNamespace
 {
     [CreateAssetMenu(fileName = "RangedMove", menuName = "GameScriptable/UnitBehaviors/RangedMove")]
-    public class RangedMove : UnitBehaviour<Unit>
+    public class RangedMove : UnitBehaviour<BasicUnit>
     {
         [Header("Behavior transitions")]
         [SerializeField]
-        private UnitBehaviour<Unit> attack;
+        private UnitBehaviour<BasicUnit> attack;
         [SerializeField]
-        private UnitBehaviour<Unit> idle;
+        private UnitBehaviour<BasicUnit> idle;
 
-        public override void Tick(Unit unit)
+        public override void Tick(BasicUnit unit)
         {
             if (!unit.IsOwnerAlive)
             {
@@ -28,7 +28,7 @@ namespace EnemyBehaviourNamespace
             unit.NavMeshAgent.SetDestination(unit.Target);
         }
 
-        public override void Exit(Unit unit)
+        public override void Exit(BasicUnit unit)
         {
             unit.NavMeshAgent.SetDestination(unit.transform.position);
         }

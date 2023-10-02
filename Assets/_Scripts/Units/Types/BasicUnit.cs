@@ -8,47 +8,44 @@ using Utility;
 using Utility.UniRx;
 using Zenject;
 
-public class Unit : MonoBehaviour, ITarget
+public class BasicUnit : MonoBehaviour, ITarget
 {
     [Inject]
     private GameManager gameManager;
     [Inject]
     private BattleManager battleManager;
 
-    private Player owner;
+    protected Player owner;
 
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
 
     private UnitPattern behavior;
     [SerializeField]
-    private UnitBehaviour<Unit> startBehaviour;
-    [SerializeField]
-    private IResourceCreator resourceCreator;
-    private ResourcePack inventory;
-    private ITarget[] targets = new ITarget[2];
+    private UnitBehaviour<BasicUnit> startBehaviour;
+    protected List<IItem> inventory = new();
+    protected ITarget[] targets = new ITarget[2];
     public Vector3 Target => targets[0] == null ? targets[1].Position : targets[0].Position;
     public Vector3 Position => transform.position;
 
     [SerializeField]
     private SpriteRenderer unitSprite;
-    private UnitBasicStats basisStats;
-    private UnitAttributes currentStats = new UnitAttributes()
+    protected UnitBasicStats basisStats;
+    protected UnitAttributes currentStats = new UnitAttributes()
     {
-        {Attribute.Attack, new LimitedFloatReactiveProperty() },
-        {Attribute.Defence, new LimitedFloatReactiveProperty() },
-        {Attribute.Health, new LimitedFloatReactiveProperty() },
-        {Attribute.Energy, new LimitedFloatReactiveProperty() },
-        {Attribute.WorkSpeed, new LimitedFloatReactiveProperty() }
+        {UnitAttributeEnum.Attack, new LimitedFloatReactiveProperty() },
+        {UnitAttributeEnum.Defence, new LimitedFloatReactiveProperty() },
+        {UnitAttributeEnum.Health, new LimitedFloatReactiveProperty() },
+        {UnitAttributeEnum.Energy, new LimitedFloatReactiveProperty() }
     };
     public ReactiveCollection<Buff> Buffs;
-    public bool IsDead => currentStats[Attribute.Health].Value <= 0;
+    public bool IsDead => currentStats[UnitAttributeEnum.Health].Value <= 0;
     private float HealthPoint
     {
-        get { return currentStats[Attribute.Health].Value; }
+        get { return currentStats[UnitAttributeEnum.Health].Value; }
         set
         {
-            currentStats[Attribute.Health].Value = value;
+            currentStats[UnitAttributeEnum.Health].Value = value;
             if (value <= 0)
                 ToDead();
         }
@@ -57,10 +54,9 @@ public class Unit : MonoBehaviour, ITarget
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
     public bool IsNearTarget => Vector3.Distance(transform.position, Target) < 0.1f;
 
-    public LimitedFloatReactiveProperty this[Attribute key] => currentStats[key];
+    public LimitedFloatReactiveProperty this[UnitAttributeEnum key] => currentStats[key];
 
-
-    public void Initialize(Player player, UnitBasicStats stats, UnitBehaviour<Unit> startBehaviour)
+    public virtual void Initialize(Player player, UnitBasicStats stats, UnitBehaviour<BasicUnit> startBehaviour)
     {
         if (owner != null)
             throw new Exception("You cannot initialize an already initialized unit!");
@@ -71,50 +67,35 @@ public class Unit : MonoBehaviour, ITarget
 
         InitStats();
     }
-
     private void InitStats()
     {
         InitAttack();
         InitHealth();
         InitDefence();
-        InitWorkSpeed();
     }
     private void InitAttack()
     {
-        var stat = currentStats[Attribute.Attack];
+        var stat = currentStats[UnitAttributeEnum.Attack];
         stat.MinLimit = true;
         stat.MinValue = 1;
         stat.Value = basisStats.Attack;
     }
     private void InitHealth()
     {
-        var stat = currentStats[Attribute.Health];
+        var stat = currentStats[UnitAttributeEnum.Health];
         stat.MaxLimit = true;
         stat.MaxValue = basisStats.MaxHealthPoint;
         stat.Value = basisStats.HealthPoint;
     }
     private void InitDefence()
     {
-        var stat = currentStats[Attribute.Defence];
+        var stat = currentStats[UnitAttributeEnum.Defence];
         stat.MinLimit = true;
         stat.MinValue = 0;
         stat.MaxLimit = true;
         stat.MaxValue = basisStats.MaxDefenceRate;
         stat.Value = basisStats.DefenceRate;
 
-    }
-    private void InitWorkSpeed()
-    {
-        var stat = currentStats[Attribute.WorkSpeed];
-        stat.MinLimit = true;
-        stat.MinValue = 0;
-        stat.MaxLimit = false;
-        stat.Value = basisStats.WorkSpeed;
-
-    }
-    public void FindNearestResources()
-    {
-        targets[1] = owner.FindNearestResources();
     }
 
     public void FindNearestWarehouse()
@@ -155,7 +136,7 @@ public class Unit : MonoBehaviour, ITarget
     private AttackData GenerateAttackData()
     {
         return new AttackData() { 
-            {Attribute.Attack, currentStats[Attribute.Attack].Value} 
+            {UnitAttributeEnum.Attack, currentStats[UnitAttributeEnum.Attack].Value} 
         };
     }
     private void BoostWithBuffs(ref AttackData damage)
@@ -165,15 +146,15 @@ public class Unit : MonoBehaviour, ITarget
             buff.Decorate(damage);
         }
     }
-    public void AddToAttribute(KeyValuePair<Attribute, float> attribute)
+    public void AddToAttribute(KeyValuePair<UnitAttributeEnum, float> attribute)
     {
         AddToAttribute(attribute.Key, attribute.Value);
     }
-    public void RemoveFromAttribute(KeyValuePair<Attribute, float> attribute)
+    public void RemoveFromAttribute(KeyValuePair<UnitAttributeEnum, float> attribute)
     {
         AddToAttribute(attribute.Key, -attribute.Value);
     }
-    private void AddToAttribute(Attribute attribute, float value)
+    private void AddToAttribute(UnitAttributeEnum attribute, float value)
     {
         currentStats[attribute].Value += value;
     }
@@ -183,7 +164,7 @@ public class Unit : MonoBehaviour, ITarget
 
         foreach (var attack in attackData)
         {
-            if (attack.Key == Attribute.Attack)
+            if (attack.Key == UnitAttributeEnum.Attack)
                 totalDamageDone = TakeDamage(attack.Value * attackData.Multiplicator);
             else
                 currentStats[attack.Key].Value += attack.Value * attackData.Multiplicator;
@@ -193,7 +174,7 @@ public class Unit : MonoBehaviour, ITarget
     }
     private float TakeDamage(float damage)
     {
-        damage = Ratios.ReduceByPercentage(damage, currentStats[Attribute.Defence].Value);
+        damage = Ratios.ReduceByPercentage(damage, currentStats[UnitAttributeEnum.Defence].Value);
 
         if (damage <= 0)
             return 0;
@@ -203,18 +184,6 @@ public class Unit : MonoBehaviour, ITarget
         HealthPoint -= damage;
 
         return lostHealthPoint;
-    }
-    public bool TryCompleteWork(float workTime)
-    {
-        float amountOfWork = currentStats[Attribute.WorkSpeed].Value * workTime;
-
-        if (resourceCreator.TryCompleteWork(amountOfWork))
-        {
-            inventory = resourceCreator.GetResource();
-            return true;
-        }
-
-        return false;
     }
 
     private BuffCore[] GetCurrentBuffCores()
@@ -236,7 +205,7 @@ public class Unit : MonoBehaviour, ITarget
         Buffs.Add(buff);
     }
 
-    public void SetBehavior(UnitBehaviour<Unit> newBehavior)
+    public void SetBehavior(UnitBehaviour<BasicUnit> newBehavior)
     {
         behavior.SetState(newBehavior);
     }

@@ -19,26 +19,26 @@ public class BattleBalanceScriptableObject : ScriptableObject
     public BuildingBattleBalanceStats Barrack;
     public BuildingBattleBalanceStats Tower;
 
-    internal float GetProductionRate(Resource resource)
+    internal float GetProductionRate(ResourceEnum resource)
     {
         switch (resource)
         {
-            case Resource.Food:
+            case ResourceEnum.Food:
                 return Food.ProductionRate;
-            case Resource.Mineral:
+            case ResourceEnum.Mineral:
                 return Mineral.ProductionRate;
             default:
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
         }
     }
 
-    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(Resource resource)
+    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(ResourceEnum resource)
     {
         switch (resource)
         {
-            case Resource.Food:
+            case ResourceEnum.Food:
                 return new(Food.AmountOfWork, Food.ResourceCount);
-            case Resource.Mineral:
+            case ResourceEnum.Mineral:
                 return new(Mineral.AmountOfWork, Mineral.ResourceCount);
             default:
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
@@ -49,37 +49,37 @@ public class BattleBalanceScriptableObject : ScriptableObject
     {
         return Farm.ProductionRate;
     }
-    public float GetProductionRate(UnitClass productionUnit)
+    public float GetProductionRate(UnitClassEnum productionUnit)
     {
         switch (productionUnit)
         {
-            case UnitClass.Worker:
+            case UnitClassEnum.Worker:
                 return Worker.ProductionRate;
-            case UnitClass.Warrior:
+            case UnitClassEnum.Warrior:
                 return Warrior.ProductionRate;
-            case UnitClass.Archer:
+            case UnitClassEnum.Archer:
                 return Archer.ProductionRate;
-            case UnitClass.Mage:
+            case UnitClassEnum.Mage:
                 return Mage.ProductionRate;
-            case UnitClass.Fly:
+            case UnitClassEnum.Fly:
                 return Fly.ProductionRate;
             default:
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
         }
     }
-    public UnitBasicStats GetStats(UnitClass productionUnit)
+    public UnitBasicStats GetStats(UnitClassEnum productionUnit)
     {
         switch (productionUnit)
         {
-            case UnitClass.Worker:
+            case UnitClassEnum.Worker:
                 return Worker.BasicStats;
-            case UnitClass.Warrior:
+            case UnitClassEnum.Warrior:
                 return Warrior.BasicStats;
-            case UnitClass.Archer:
+            case UnitClassEnum.Archer:
                 return Archer.BasicStats;
-            case UnitClass.Mage:
+            case UnitClassEnum.Mage:
                 return Mage.BasicStats;
-            case UnitClass.Fly:
+            case UnitClassEnum.Fly:
                 return Fly.BasicStats;
             default:
                 throw new Exception("It is impossible to get stats of a non-existent unit class!");

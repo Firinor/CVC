@@ -13,22 +13,22 @@ public class BattleBalance
 
     public IEnumerable<BuildingPosition> DefaultBuildings => startBuildingGrig.buildings;
 
-    public float GetProductionRate(UnitClass productionUnit)
+    public float GetProductionRate(UnitClassEnum productionUnit)
     {
         return battleBalance.GetProductionRate(productionUnit);
     }
 
-    public float GetProductionRate(Resource resource)
+    public float GetProductionRate(ResourceEnum resource)
     {
         return battleBalance.GetProductionRate(resource);
     }
 
-    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(Resource resource)
+    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(ResourceEnum resource)
     {
         return battleBalance.GetResourseCreatorData(resource);
     }
 
-    public UnitBasicStats GetStats(UnitClass productionUnit)
+    public UnitBasicStats GetStats(UnitClassEnum productionUnit)
     {
         return battleBalance.GetStats(productionUnit);
     }

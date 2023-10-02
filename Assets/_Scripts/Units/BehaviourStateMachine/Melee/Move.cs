@@ -3,13 +3,13 @@
 namespace UnitBehaviourNamespace
 {
     [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/Move")]
-    public class Move : UnitBehaviour<Unit>
+    public class Move : UnitBehaviour<BasicUnit>
     {
         [Header("Behavior transitions")]
         [SerializeField]
-        private UnitBehaviour<Unit> idle;
+        private UnitBehaviour<BasicUnit> idle;
 
-        public override void Tick(Unit unit)
+        public override void Tick(BasicUnit unit)
         {
             if (!unit.IsOwnerAlive)
             {

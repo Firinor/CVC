@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Food:
     ProductionRate: 4
+    AmountOfWork: 5
+    ResourceCount: 10
   Mineral:
     ProductionRate: 4
+    AmountOfWork: 50
+    ResourceCount: 1
   Worker:
     ProductionRate: 3
     BasicStats: {fileID: 11400000, guid: 86db707f24a69004e883b608f30a2f1c, type: 2}

@@ -10,9 +10,9 @@ namespace Observers
         [SerializeField]
         private Slider slider;
         [SerializeField]
-        private Unit unit;
+        private BasicUnit unit;
         [SerializeField]
-        private Attribute attribute;
+        private UnitAttributeEnum attribute;
         [SerializeField]
         private TextMeshProUGUI text;
 

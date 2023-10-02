@@ -9,11 +9,11 @@ public class ResourseCreator : Building, IResourceCreator
     public FloatReactiveProperty ProductionRate = new();
     public int resourceInWarehouse;
     [SerializeField]
-    private Resource resource;
+    private ResourceEnum resource;
     private int resourceCount;
     private float amountOfWork;
     [SerializeField]
-    private BuildingClass buildingClass;
+    private BuildingEnum buildingClass;
 
     public float WorkRequired => battleBalance.GetProductionRate(resource);
 
@@ -45,7 +45,7 @@ public class ResourseCreator : Building, IResourceCreator
         return false;
     }
 
-    public ResourcePack GetResource()
+    public IItem GetResource()
     {
         if(resourceInWarehouse > 0)
         {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-public class AttackData : Dictionary<Attribute, float>
+public class AttackData : Dictionary<UnitAttributeEnum, float>
 {
     public int Multiplicator = 1;
 }

@@ -3,15 +3,15 @@
 namespace UnitBehaviourNamespace
 {
     [CreateAssetMenu(fileName = "AttackUnitBehavior", menuName = "GameScriptable/UnitBehaviors/EnemyAttackBehavior")]
-    public class Attack : UnitBehaviour<Unit>
+    public class Attack : UnitBehaviour<BasicUnit>
     {
         [Header("Behavior transitions")]
         [SerializeField]
-        private UnitBehaviour<Unit> idle;
+        private UnitBehaviour<BasicUnit> idle;
         [SerializeField]
-        private UnitBehaviour<Unit> move;
+        private UnitBehaviour<BasicUnit> move;
 
-        public override void Tick(Unit unit)
+        public override void Tick(BasicUnit unit)
         {
             //if (!unit.IsPlayerInSight())
             //{

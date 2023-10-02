@@ -8,19 +8,19 @@ namespace Buffs
     {
         public UnitAttribute[] attributes;
 
-        public override void OnStart(Unit unit)
+        public override void OnStart(BasicUnit unit)
         {
             foreach (var attribute in attributes)
             {
-                unit.AddToAttribute(new KeyValuePair<Attribute, float>(attribute.Attribute, attribute.Value));
+                unit.AddToAttribute(new KeyValuePair<UnitAttributeEnum, float>(attribute.Attribute, attribute.Value));
             }
         }
 
-        public override void OnEnd(Unit unit)
+        public override void OnEnd(BasicUnit unit)
         {
             foreach (var attribute in attributes)
             {
-                unit.RemoveFromAttribute(new KeyValuePair<Attribute, float>(attribute.Attribute, attribute.Value));
+                unit.RemoveFromAttribute(new KeyValuePair<UnitAttributeEnum, float>(attribute.Attribute, attribute.Value));
             }
         }
     }

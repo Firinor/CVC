@@ -7,11 +7,11 @@ public class UnitCreator : Building
     private float productionSpeed;
     public FloatReactiveProperty ProductionRate = new();
     [SerializeField]
-    private UnitClass productionUnit;
+    private UnitClassEnum productionUnit;
     [SerializeField]
-    private UnitBehaviour<Unit> startBehaviour;
+    private UnitBehaviour<BasicUnit> startBehaviour;
     [SerializeField]
-    private BuildingClass buildingClass;
+    private BuildingEnum buildingClass;
     private bool isNeedNewUnit = true;
 
     public float MaxValue => battleBalance.GetProductionRate(productionUnit);
@@ -57,6 +57,6 @@ public class UnitCreator : Building
             Quaternion.identity, 
             battleManager.GetParentTransform(owner));
 
-        newUnit.GetComponent<Unit>().Initialize(owner, battleBalance.GetStats(productionUnit), startBehaviour);
+        newUnit.GetComponent<BasicUnit>().Initialize(owner, battleBalance.GetStats(productionUnit), startBehaviour);
     }
 }

@@ -82,12 +82,12 @@ public class BattleManager : MonoBehaviour
             throw new Exception("Could not find a transform for the specified command!");
     }
 
-    public bool IsEnoughResources(UnitClass productionUnit)
+    public bool IsEnoughResources(UnitClassEnum productionUnit)
     {
         return true;
     }
 
-    public void RemoveResources(Player player, UnitClass productionUnit)
+    public void RemoveResources(Player player, UnitClassEnum productionUnit)
     {
         
     }

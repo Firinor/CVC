@@ -1,13 +1,13 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
-public class NewBehaviourScript : UnitBehaviour<Unit>
+public class NewBehaviourScript : UnitBehaviour<Worker>
 {
     [Header("Behavior transitions")]
     [SerializeField]
-    private UnitBehaviour<Unit> handOver;
+    private UnitBehaviour<Worker> handOver;
 
-    public override void Tick(Unit unit)
+    public override void Tick(Worker unit)
     {
         bool isCompleted = unit.TryCompleteWork(Time.fixedDeltaTime);
         if (isCompleted)
