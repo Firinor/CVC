@@ -1,4 +1,4 @@
-﻿public enum BuildingEnum
+﻿public enum EBuilding
 {
     Castle,
     House,

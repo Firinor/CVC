@@ -3,6 +3,6 @@
 [Serializable]
 public class UnitBattleBalanceStats
 {
-    public float ProductionRate;
+    public float ProductionTime;
     public UnitBasicStats BasicStats;
 }

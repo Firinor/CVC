@@ -1,18 +1,47 @@
-﻿using UnityEngine;
+﻿using FirUnityEditor;
+using System;
+using UnityEngine;
 using Utility.UniRx;
 
 public class Worker : BasicUnit
 {
     [SerializeField]
     private IResourceCreator resourceCreator;
+    [SerializeField, NullCheck]
     private WorkerPattern behavior;
+    [SerializeField, NullCheck]
+    private UnitBehaviour<Worker> startBehaviour;
 
-    public override void Initialize(Player player, UnitBasicStats stats, UnitBehaviour<BasicUnit> startBehaviour)
+    protected void FixedUpdate()
     {
-        base.Initialize(player, stats, startBehaviour);
+        behavior.Tick();
+    }
+
+
+    public override void Initialize(Player player, UnitBasicStats stats)
+    {
+        base.Initialize(player, stats);
+
+        behavior = new(startBehaviour, this);
+
         currentStats.Add(UnitAttributeEnum.WorkSpeed, new LimitedFloatReactiveProperty());
         InitWorkSpeed();
     }
+
+    public void UnloadResources()
+    {
+        owner.GetResources(inventory);
+    }
+
+    public void EnableExtract()
+    {
+        resourceCreator.EnableExtract();
+    }
+    public void DisableExtract()
+    {
+        resourceCreator.DisableExtract();
+    }
+
     private void InitWorkSpeed()
     {
         var stat = currentStats[UnitAttributeEnum.WorkSpeed];
@@ -23,7 +52,8 @@ public class Worker : BasicUnit
     }
     public void FindNearestResources()
     {
-        targets[1] = owner.FindNearestResources();
+        resourceCreator = owner.FindNearestResources();
+        Target = resourceCreator;
     }
     public bool TryCompleteWork(float workTime)
     {
@@ -41,5 +71,10 @@ public class Worker : BasicUnit
     public void SetBehavior(UnitBehaviour<Worker> newBehavior)
     {
         behavior.SetState(newBehavior);
+    }
+
+    public void SetIdleBehavior()
+    {
+        behavior.SetIdleState();
     }
 }

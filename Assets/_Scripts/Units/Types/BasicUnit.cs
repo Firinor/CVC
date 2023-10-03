@@ -1,4 +1,5 @@
 using Buffs;
+using FirUnityEditor;
 using System;
 using System.Collections.Generic;
 using UniRx;
@@ -8,7 +9,7 @@ using Utility;
 using Utility.UniRx;
 using Zenject;
 
-public class BasicUnit : MonoBehaviour, ITarget
+public abstract class BasicUnit : MonoBehaviour, ITarget
 {
     [Inject]
     private GameManager gameManager;
@@ -20,12 +21,8 @@ public class BasicUnit : MonoBehaviour, ITarget
     [field: SerializeField]
     public NavMeshAgent NavMeshAgent { get; private set; }
 
-    private UnitPattern behavior;
-    [SerializeField]
-    private UnitBehaviour<BasicUnit> startBehaviour;
     protected List<IItem> inventory = new();
-    protected ITarget[] targets = new ITarget[2];
-    public Vector3 Target => targets[0] == null ? targets[1].Position : targets[0].Position;
+    public ITarget Target { get; protected set; }
     public Vector3 Position => transform.position;
 
     [SerializeField]
@@ -52,18 +49,17 @@ public class BasicUnit : MonoBehaviour, ITarget
     }
     public bool IsEnemyAlive => battleManager.IsEnemyAlive(owner);
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
-    public bool IsNearTarget => Vector3.Distance(transform.position, Target) < 0.1f;
+    public bool IsNearTarget => Vector3.Distance(transform.position, Target.Position) < 0.1f;
 
     public LimitedFloatReactiveProperty this[UnitAttributeEnum key] => currentStats[key];
 
-    public virtual void Initialize(Player player, UnitBasicStats stats, UnitBehaviour<BasicUnit> startBehaviour)
+    public virtual void Initialize(Player player, UnitBasicStats stats)
     {
         if (owner != null)
             throw new Exception("You cannot initialize an already initialized unit!");
 
         owner = player;
         basisStats = stats;
-        behavior = new UnitPattern(startBehaviour, this);
 
         InitStats();
     }
@@ -100,15 +96,11 @@ public class BasicUnit : MonoBehaviour, ITarget
 
     public void FindNearestWarehouse()
     {
-        targets[0] = owner.FindNearestWarehouse(transform.position);
+        Target = owner.FindNearestWarehouse(transform.position);
     }
     public void Awake()
     {
         NavMeshAgent = GetComponent<NavMeshAgent>();
-    }
-    private void FixedUpdate()
-    {
-        behavior.Tick();
     }
 
     private void ToDead()
@@ -203,10 +195,5 @@ public class BasicUnit : MonoBehaviour, ITarget
         buff.Start(this, buffBehaviour);
 
         Buffs.Add(buff);
-    }
-
-    public void SetBehavior(UnitBehaviour<BasicUnit> newBehavior)
-    {
-        behavior.SetState(newBehavior);
     }
 }

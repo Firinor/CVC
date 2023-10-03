@@ -9,10 +9,8 @@ public class UnitCreator : Building
     [SerializeField]
     private UnitClassEnum productionUnit;
     [SerializeField]
-    private UnitBehaviour<BasicUnit> startBehaviour;
-    [SerializeField]
-    private BuildingEnum buildingClass;
-    private bool isNeedNewUnit = true;
+    private EBuilding buildingClass;
+    public BoolReactiveProperty IsNeedNewUnit = new(true);
 
     public float MaxValue => battleBalance.GetProductionRate(productionUnit);
 
@@ -23,7 +21,7 @@ public class UnitCreator : Building
 
     private void FixedUpdate()
     {
-        if(ProductionRate.Value <= 0 && isNeedNewUnit)
+        if(ProductionRate.Value <= 0 && IsNeedNewUnit.Value)
         {
             if (battleManager.IsEnoughResources(productionUnit)) 
             {
@@ -45,18 +43,30 @@ public class UnitCreator : Building
 
     public void NeedNewUnit()
     {
-        if (!isNeedNewUnit)
-            isNeedNewUnit = true;
+        if (!IsNeedNewUnit.Value && owner.IsNeedMoreUnits(productionUnit))
+            IsNeedNewUnit.Value = true;
     }
 
     private void CreateNewUnit()
     {
+        IsNeedNewUnit.Value = false;
+
         GameObject newUnit = Instantiate(
             UnitDataBase.GetUnit(productionUnit),
             transform.position, 
             Quaternion.identity, 
             battleManager.GetParentTransform(owner));
 
-        newUnit.GetComponent<BasicUnit>().Initialize(owner, battleBalance.GetStats(productionUnit), startBehaviour);
+        switch (productionUnit)
+        {
+            case UnitClassEnum.Worker:
+                newUnit.GetComponent<Worker>().Initialize(owner, battleBalance.GetStats(productionUnit));
+                break;
+            default:
+                newUnit.GetComponent<BasicUnit>().Initialize(owner, battleBalance.GetStats(productionUnit));
+                break;
+        }
+
+        owner.AddUnit(productionUnit, newUnit.GetComponent<BasicUnit>());
     }
 }

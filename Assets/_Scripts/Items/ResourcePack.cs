@@ -1,10 +1,10 @@
 ﻿public struct ResourcePack : IItem
 {
-    public ResourceAmount[] Resourses;
+    public ResourceAmount[] Resources;
 
     public ResourcePack(ResourceEnum resource, int count)
     {
-        Resourses = new ResourceAmount[1]
+        Resources = new ResourceAmount[1]
         {
             new ResourceAmount(resource, count)
         };

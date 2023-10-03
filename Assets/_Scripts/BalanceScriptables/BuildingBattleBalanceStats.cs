@@ -3,5 +3,6 @@
 [Serializable]
 public class BuildingBattleBalanceStats
 {
-    public float ProductionRate;
+    public float ConstructionTime;
+    public float WorkSpeed;
 }

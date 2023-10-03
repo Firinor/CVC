@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c2c31e103f4964eb72454359e00383, type: 3}
-  m_Name: MoveUnitBehavior
+  m_Script: {fileID: 11500000, guid: 95ebbfedc565042458a1b86e1ffe04d2, type: 3}
+  m_Name: IdleUnitBehavior
   m_EditorClassIdentifier: 
-  toWork: {fileID: 0}

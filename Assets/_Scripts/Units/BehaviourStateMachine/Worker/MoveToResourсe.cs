@@ -1,25 +1,31 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MoveUnitBehavior", menuName = "GameScriptable/UnitBehaviors/WorkerMove")]
-public class MoveToResourse : UnitBehaviour<BasicUnit>
+public class MoveToResource : UnitBehaviour<Worker>
 {
     [Header("Behavior transitions")]
     [SerializeField]
-    private UnitBehaviour<BasicUnit> toWork;
+    private UnitBehaviour<Worker> toWork;
 
-    public override void Enter(BasicUnit unit)
+    public override void Enter(Worker unit)
     {
         unit.FindNearestResources();
     }
 
-    public override void Tick(BasicUnit unit)
+    public override void Tick(Worker unit)
     {
+        if(unit.Target == null)
+        {
+            unit.SetIdleBehavior();
+            return;
+        }
+
         if (unit.IsNearTarget)
         {
             unit.SetBehavior(toWork);
             return;
         }
 
-        unit.NavMeshAgent.SetDestination(unit.Target);
+        unit.NavMeshAgent.SetDestination(unit.Target.Position);
     }
 }

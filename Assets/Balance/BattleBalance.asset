@@ -21,27 +21,32 @@ MonoBehaviour:
     AmountOfWork: 50
     ResourceCount: 1
   Worker:
-    ProductionRate: 3
+    ProductionTime: 1
     BasicStats: {fileID: 11400000, guid: 86db707f24a69004e883b608f30a2f1c, type: 2}
   Warrior:
-    ProductionRate: 15
+    ProductionTime: 10
     BasicStats: {fileID: 11400000, guid: 47b56e49cd844bc4698746a7436b2abd, type: 2}
   Archer:
-    ProductionRate: 15
+    ProductionTime: 0
     BasicStats: {fileID: 0}
   Mage:
-    ProductionRate: 0
+    ProductionTime: 0
     BasicStats: {fileID: 0}
   Fly:
-    ProductionRate: 0
+    ProductionTime: 0
     BasicStats: {fileID: 0}
   Castle:
-    ProductionRate: 0
+    ConstructionTime: 0
+    WorkSpeed: 0
   Hous:
-    ProductionRate: 0
+    ConstructionTime: 0
+    WorkSpeed: 0
   Farm:
-    ProductionRate: 3
+    ConstructionTime: 0
+    WorkSpeed: 0
   Barrack:
-    ProductionRate: 0
+    ConstructionTime: 0
+    WorkSpeed: 0
   Tower:
-    ProductionRate: 0
+    ConstructionTime: 0
+    WorkSpeed: 0

@@ -7,13 +7,15 @@ public class ResourseCreator : Building, IResourceCreator
     [SerializeField]
     private float productionSpeed;
     public FloatReactiveProperty ProductionRate = new();
+
+    public BoolReactiveProperty IsEnable = new(false);
     public int resourceInWarehouse;
     [SerializeField]
     private ResourceEnum resource;
     private int resourceCount;
     private float amountOfWork;
     [SerializeField]
-    private BuildingEnum buildingClass;
+    private EBuilding buildingClass;
 
     public float WorkRequired => battleBalance.GetProductionRate(resource);
 
@@ -54,5 +56,15 @@ public class ResourseCreator : Building, IResourceCreator
         }
 
         throw new Exception("An attempt was made to get a non-existent resource!");
+    }
+
+    public void EnableExtract()
+    {
+        IsEnable.Value = true;
+    }
+
+    public void DisableExtract()
+    {
+        IsEnable.Value = false;
     }
 }

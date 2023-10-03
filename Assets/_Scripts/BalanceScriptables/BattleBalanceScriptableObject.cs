@@ -45,24 +45,24 @@ public class BattleBalanceScriptableObject : ScriptableObject
         }
     }
 
-    public float GetFarmRate()
+    public float GetFarmWorkSpeed()
     {
-        return Farm.ProductionRate;
+        return Farm.WorkSpeed;
     }
     public float GetProductionRate(UnitClassEnum productionUnit)
     {
         switch (productionUnit)
         {
             case UnitClassEnum.Worker:
-                return Worker.ProductionRate;
+                return Worker.ProductionTime;
             case UnitClassEnum.Warrior:
-                return Warrior.ProductionRate;
+                return Warrior.ProductionTime;
             case UnitClassEnum.Archer:
-                return Archer.ProductionRate;
+                return Archer.ProductionTime;
             case UnitClassEnum.Mage:
-                return Mage.ProductionRate;
+                return Mage.ProductionTime;
             case UnitClassEnum.Fly:
-                return Fly.ProductionRate;
+                return Fly.ProductionTime;
             default:
                 throw new Exception("It is impossible to get data of a non-existent unit class!");
         }

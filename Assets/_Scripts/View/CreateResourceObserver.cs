@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Observers
 {
-    public class CreateResourceObserver : MonoBehaviour, IObserver<float>
+    public class CreateResourceObserver : MonoBehaviour, IObserver<float>, IObserver<bool>
     {
         [SerializeField]
         private Slider slider;
@@ -22,13 +22,20 @@ namespace Observers
 
         public void OnNext(float value)
         {
-            slider.value = value;
+            slider.value = slider.maxValue - value;
         }
 
-        private void OnEnter()
+        public void OnNext(bool value)
+        {
+            slider.gameObject.SetActive(value);
+        }
+
+        private void OnEnable()
         {
             slider.maxValue = creator.WorkRequired;
             creator.ProductionRate.Subscribe(this);
+            creator.IsEnable.Subscribe(this);
+            slider.gameObject.SetActive(creator.IsEnable.Value);
         }
     }
 }
