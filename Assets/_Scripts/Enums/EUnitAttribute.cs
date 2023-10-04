@@ -1,4 +1,4 @@
-﻿public enum UnitAttributeEnum
+﻿public enum EUnitAttribute
 {
     Health,
     Defence,

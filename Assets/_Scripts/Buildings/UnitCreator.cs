@@ -7,7 +7,7 @@ public class UnitCreator : Building
     private float productionSpeed;
     public FloatReactiveProperty ProductionRate = new();
     [SerializeField]
-    private UnitClassEnum productionUnit;
+    private EUnitClass productionUnit;
     [SerializeField]
     private EBuilding buildingClass;
     public BoolReactiveProperty IsNeedNewUnit = new(true);
@@ -59,7 +59,7 @@ public class UnitCreator : Building
 
         switch (productionUnit)
         {
-            case UnitClassEnum.Worker:
+            case EUnitClass.Worker:
                 newUnit.GetComponent<Worker>().Initialize(owner, battleBalance.GetStats(productionUnit));
                 break;
             default:

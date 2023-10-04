@@ -1,9 +1,9 @@
-﻿public struct ResourceAmount
+﻿public struct ResourceAmount : IItem
 {
-    public ResourceEnum Resource;
+    public EResource Resource;
     public int Count;
 
-    public ResourceAmount(ResourceEnum resource, int count)
+    public ResourceAmount(EResource resource, int count)
     {
         Resource = resource;
         Count = count;

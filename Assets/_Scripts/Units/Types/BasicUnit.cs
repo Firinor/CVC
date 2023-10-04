@@ -30,19 +30,19 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     protected UnitBasicStats basisStats;
     protected UnitAttributes currentStats = new UnitAttributes()
     {
-        {UnitAttributeEnum.Attack, new LimitedFloatReactiveProperty() },
-        {UnitAttributeEnum.Defence, new LimitedFloatReactiveProperty() },
-        {UnitAttributeEnum.Health, new LimitedFloatReactiveProperty() },
-        {UnitAttributeEnum.Energy, new LimitedFloatReactiveProperty() }
+        {EUnitAttribute.Attack, new LimitedFloatReactiveProperty() },
+        {EUnitAttribute.Defence, new LimitedFloatReactiveProperty() },
+        {EUnitAttribute.Health, new LimitedFloatReactiveProperty() },
+        {EUnitAttribute.Energy, new LimitedFloatReactiveProperty() }
     };
     public ReactiveCollection<Buff> Buffs;
-    public bool IsDead => currentStats[UnitAttributeEnum.Health].Value <= 0;
+    public bool IsDead => currentStats[EUnitAttribute.Health].Value <= 0;
     private float HealthPoint
     {
-        get { return currentStats[UnitAttributeEnum.Health].Value; }
+        get { return currentStats[EUnitAttribute.Health].Value; }
         set
         {
-            currentStats[UnitAttributeEnum.Health].Value = value;
+            currentStats[EUnitAttribute.Health].Value = value;
             if (value <= 0)
                 ToDead();
         }
@@ -51,7 +51,7 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     public bool IsOwnerAlive => battleManager.IsOwnerAlive(owner);
     public bool IsNearTarget => Vector3.Distance(transform.position, Target.Position) < 0.1f;
 
-    public LimitedFloatReactiveProperty this[UnitAttributeEnum key] => currentStats[key];
+    public LimitedFloatReactiveProperty this[EUnitAttribute key] => currentStats[key];
 
     public virtual void Initialize(Player player, UnitBasicStats stats)
     {
@@ -71,21 +71,21 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     }
     private void InitAttack()
     {
-        var stat = currentStats[UnitAttributeEnum.Attack];
+        var stat = currentStats[EUnitAttribute.Attack];
         stat.MinLimit = true;
         stat.MinValue = 1;
         stat.Value = basisStats.Attack;
     }
     private void InitHealth()
     {
-        var stat = currentStats[UnitAttributeEnum.Health];
+        var stat = currentStats[EUnitAttribute.Health];
         stat.MaxLimit = true;
         stat.MaxValue = basisStats.MaxHealthPoint;
         stat.Value = basisStats.HealthPoint;
     }
     private void InitDefence()
     {
-        var stat = currentStats[UnitAttributeEnum.Defence];
+        var stat = currentStats[EUnitAttribute.Defence];
         stat.MinLimit = true;
         stat.MinValue = 0;
         stat.MaxLimit = true;
@@ -128,7 +128,7 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     private AttackData GenerateAttackData()
     {
         return new AttackData() { 
-            {UnitAttributeEnum.Attack, currentStats[UnitAttributeEnum.Attack].Value} 
+            {EUnitAttribute.Attack, currentStats[EUnitAttribute.Attack].Value} 
         };
     }
     private void BoostWithBuffs(ref AttackData damage)
@@ -138,15 +138,15 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
             buff.Decorate(damage);
         }
     }
-    public void AddToAttribute(KeyValuePair<UnitAttributeEnum, float> attribute)
+    public void AddToAttribute(KeyValuePair<EUnitAttribute, float> attribute)
     {
         AddToAttribute(attribute.Key, attribute.Value);
     }
-    public void RemoveFromAttribute(KeyValuePair<UnitAttributeEnum, float> attribute)
+    public void RemoveFromAttribute(KeyValuePair<EUnitAttribute, float> attribute)
     {
         AddToAttribute(attribute.Key, -attribute.Value);
     }
-    private void AddToAttribute(UnitAttributeEnum attribute, float value)
+    private void AddToAttribute(EUnitAttribute attribute, float value)
     {
         currentStats[attribute].Value += value;
     }
@@ -156,7 +156,7 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
 
         foreach (var attack in attackData)
         {
-            if (attack.Key == UnitAttributeEnum.Attack)
+            if (attack.Key == EUnitAttribute.Attack)
                 totalDamageDone = TakeDamage(attack.Value * attackData.Multiplicator);
             else
                 currentStats[attack.Key].Value += attack.Value * attackData.Multiplicator;
@@ -166,7 +166,7 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     }
     private float TakeDamage(float damage)
     {
-        damage = Ratios.ReduceByPercentage(damage, currentStats[UnitAttributeEnum.Defence].Value);
+        damage = Ratios.ReduceByPercentage(damage, currentStats[EUnitAttribute.Defence].Value);
 
         if (damage <= 0)
             return 0;

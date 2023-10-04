@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e244315e02dddb749a793e52b86cce0e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0258d247c31c75446894622b59365e0e, type: 3}
   m_Name: StartBuildings
   m_EditorClassIdentifier: 
   buildings:
   - X: -2
     Y: 0
     Building: {fileID: 6853212104247236501, guid: 2678eb199388b2946a1086b90018e8b5, type: 3}
-  - X: -1
-    Y: 0
-    Building: {fileID: 6853212104247236501, guid: 2379c07c4df99644b94e62ee1172e278, type: 3}
   - X: -3
     Y: 0
     Building: {fileID: 6853212104247236501, guid: 6816d0f329d17c149b90499cacbaf2c0, type: 3}

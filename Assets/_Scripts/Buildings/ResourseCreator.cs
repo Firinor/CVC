@@ -11,7 +11,7 @@ public class ResourseCreator : Building, IResourceCreator
     public BoolReactiveProperty IsEnable = new(false);
     public int resourceInWarehouse;
     [SerializeField]
-    private ResourceEnum resource;
+    private EResource resource;
     private int resourceCount;
     private float amountOfWork;
     [SerializeField]
@@ -52,7 +52,7 @@ public class ResourseCreator : Building, IResourceCreator
         if(resourceInWarehouse > 0)
         {
             resourceInWarehouse--;
-            return new ResourcePack(resource, resourceCount);
+            return new ResourceAmount(resource, resourceCount);
         }
 
         throw new Exception("An attempt was made to get a non-existent resource!");

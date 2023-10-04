@@ -5,9 +5,9 @@ using Zenject;
 public class ScriptableInstaller : ScriptableObjectInstaller<ScriptableInstaller>
 {
     [SerializeField]
-    private BattleBalanceScriptableObject battleBalance;
+    private SOBattleBalance battleBalance;
     [SerializeField]
-    private StartBuildingScriptableObject startBuildingGrig;
+    private SOStartBuilding startBuildingGrig;
 
     public override void InstallBindings()
     {

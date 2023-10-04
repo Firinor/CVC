@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StartBuildingState", menuName = "GameBalance/StartBuildingState")]
-public class StartBuildingScriptableObject : ScriptableObject
+public class SOStartBuilding : ScriptableObject
 {
     public List<BuildingPosition> buildings;
 }

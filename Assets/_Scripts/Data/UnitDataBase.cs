@@ -7,15 +7,15 @@ public class UnitDataBase
 {
     private static UnitDataBase instance;
     
-    private Dictionary<UnitClassEnum, GameObject> Units;
+    private Dictionary<EUnitClass, GameObject> Units;
 
-    public UnitDataBase(Dictionary<UnitClassEnum, GameObject> units)
+    public UnitDataBase(Dictionary<EUnitClass, GameObject> units)
     {
         instance = this;
         Units = units;
     }
 
-    public static GameObject GetUnit(UnitClassEnum productionUnit)
+    public static GameObject GetUnit(EUnitClass productionUnit)
     {
         return instance.Units[productionUnit];
     }

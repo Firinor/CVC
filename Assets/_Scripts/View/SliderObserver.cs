@@ -12,7 +12,7 @@ namespace Observers
         [SerializeField]
         private BasicUnit unit;
         [SerializeField]
-        private UnitAttributeEnum attribute;
+        private EUnitAttribute attribute;
         [SerializeField]
         private TextMeshProUGUI text;
 

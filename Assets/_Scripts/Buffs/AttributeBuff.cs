@@ -12,7 +12,7 @@ namespace Buffs
         {
             foreach (var attribute in attributes)
             {
-                unit.AddToAttribute(new KeyValuePair<UnitAttributeEnum, float>(attribute.Attribute, attribute.Value));
+                unit.AddToAttribute(new KeyValuePair<EUnitAttribute, float>(attribute.Attribute, attribute.Value));
             }
         }
 
@@ -20,7 +20,7 @@ namespace Buffs
         {
             foreach (var attribute in attributes)
             {
-                unit.RemoveFromAttribute(new KeyValuePair<UnitAttributeEnum, float>(attribute.Attribute, attribute.Value));
+                unit.RemoveFromAttribute(new KeyValuePair<EUnitAttribute, float>(attribute.Attribute, attribute.Value));
             }
         }
     }

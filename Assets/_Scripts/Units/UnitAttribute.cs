@@ -3,6 +3,6 @@
 [Serializable]
 public class UnitAttribute
 {
-    public UnitAttributeEnum Attribute;
+    public EUnitAttribute Attribute;
     public float Value;
 }

@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8219605878493471040, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: -8219605878493471040, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8219605878493471040, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8219605878493471040, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 946679446137220751, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_AngularDrag
       value: 2000
@@ -103,6 +119,10 @@ PrefabInstance:
     - target: {fileID: 6692257658976540728, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7467629910691061713, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_Radius
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7714825150474779684, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: <NavMeshAgent>k__BackingField

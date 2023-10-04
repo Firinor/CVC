@@ -24,13 +24,13 @@ public class Worker : BasicUnit
 
         behavior = new(startBehaviour, this);
 
-        currentStats.Add(UnitAttributeEnum.WorkSpeed, new LimitedFloatReactiveProperty());
+        currentStats.Add(EUnitAttribute.WorkSpeed, new LimitedFloatReactiveProperty());
         InitWorkSpeed();
     }
 
     public void UnloadResources()
     {
-        owner.GetResources(inventory);
+        owner.GetResourcesFrom(inventory);
     }
 
     public void EnableExtract()
@@ -44,7 +44,7 @@ public class Worker : BasicUnit
 
     private void InitWorkSpeed()
     {
-        var stat = currentStats[UnitAttributeEnum.WorkSpeed];
+        var stat = currentStats[EUnitAttribute.WorkSpeed];
         stat.MinLimit = true;
         stat.MinValue = 0;
         stat.MaxLimit = false;
@@ -57,7 +57,7 @@ public class Worker : BasicUnit
     }
     public bool TryCompleteWork(float workTime)
     {
-        float amountOfWork = currentStats[UnitAttributeEnum.WorkSpeed].Value * workTime;
+        float amountOfWork = currentStats[EUnitAttribute.WorkSpeed].Value * workTime;
 
         if (resourceCreator.TryCompleteWork(amountOfWork))
         {

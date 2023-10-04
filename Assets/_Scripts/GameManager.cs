@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
         //balance.Initialize();
 
-        Dictionary<UnitClassEnum, GameObject> unitsDictionary = new();
+        Dictionary<EUnitClass, GameObject> unitsDictionary = new();
         foreach (var pair in unitsPrefabs)
             unitsDictionary.Add(pair.unitClass, pair.unit);
 
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     [Serializable]
     private class UnitKeyValuePair
     {
-        public UnitClassEnum unitClass;
+        public EUnitClass unitClass;
         public GameObject unit;
     }
 }

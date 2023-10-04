@@ -7,28 +7,28 @@ using Zenject;
 public class BattleBalance
 {
     [Inject]
-    private BattleBalanceScriptableObject battleBalance;
+    private SOBattleBalance battleBalance;
     [Inject]
-    private StartBuildingScriptableObject startBuildingGrig;
+    private SOStartBuilding startBuildingGrig;
 
     public IEnumerable<BuildingPosition> DefaultBuildings => startBuildingGrig.buildings;
 
-    public float GetProductionRate(UnitClassEnum productionUnit)
+    public float GetProductionRate(EUnitClass productionUnit)
     {
         return battleBalance.GetProductionRate(productionUnit);
     }
 
-    public float GetProductionRate(ResourceEnum resource)
+    public float GetProductionRate(EResource resource)
     {
         return battleBalance.GetProductionRate(resource);
     }
 
-    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(ResourceEnum resource)
+    public (float AmountOfWork, int ResourceCount) GetResourseCreatorData(EResource resource)
     {
         return battleBalance.GetResourseCreatorData(resource);
     }
 
-    public UnitBasicStats GetStats(UnitClassEnum productionUnit)
+    public UnitBasicStats GetStats(EUnitClass productionUnit)
     {
         return battleBalance.GetStats(productionUnit);
     }

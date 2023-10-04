@@ -1,4 +1,4 @@
-﻿public enum UnitClassEnum
+﻿public enum EUnitClass
 {
     Worker,
     Warrior,
