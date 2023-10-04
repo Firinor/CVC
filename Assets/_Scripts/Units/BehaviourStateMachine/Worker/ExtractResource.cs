@@ -9,7 +9,7 @@ public class ExtractResource : UnitBehaviour<Worker>
 
     public override void Enter(Worker unit)
     {
-        unit.EnableExtract();
+        unit.ConnectToBuilding();
     }
     public override void Tick(Worker unit)
     {
@@ -22,6 +22,6 @@ public class ExtractResource : UnitBehaviour<Worker>
     }
     public override void Exit(Worker unit)
     {
-        unit.DisableExtract();
+        unit.DisconnectFromBuilding();
     }
 }

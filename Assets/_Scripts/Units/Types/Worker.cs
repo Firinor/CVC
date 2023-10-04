@@ -14,7 +14,8 @@ public class Worker : BasicUnit
 
     protected void FixedUpdate()
     {
-        behavior.Tick();
+        if(!IsSleep)
+            behavior.Tick();
     }
 
 
@@ -33,13 +34,13 @@ public class Worker : BasicUnit
         owner.GetResourcesFrom(inventory);
     }
 
-    public void EnableExtract()
+    public void ConnectToBuilding()
     {
-        resourceCreator.EnableExtract();
+        resourceCreator.ConnectToBuilding(this);
     }
-    public void DisableExtract()
+    public void DisconnectFromBuilding()
     {
-        resourceCreator.DisableExtract();
+        resourceCreator.DisconnectFromBuilding(this);
     }
 
     private void InitWorkSpeed()

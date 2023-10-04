@@ -25,6 +25,8 @@ public abstract class BasicUnit : MonoBehaviour, ITarget
     public ITarget Target { get; protected set; }
     public Vector3 Position => transform.position;
 
+    public bool IsSleep;
+
     [SerializeField]
     private SpriteRenderer unitSprite;
     protected UnitBasicStats basisStats;
