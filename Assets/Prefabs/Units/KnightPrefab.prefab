@@ -49,6 +49,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5999890878874371282, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5999890878874371282, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.07
       objectReference: {fileID: 0}
@@ -71,14 +75,14 @@ PrefabInstance:
     - target: {fileID: 6692257657980440242, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -815637316, guid: 8fc2b8a175c861441a5a1f1d46181327, type: 3}
+      objectReference: {fileID: -209654819, guid: 63ee8bab68b123f489c0561915430e17, type: 3}
     - target: {fileID: 6692257657980440242, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6692257658976540720, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_Name
-      value: WorkerPrefab
+      value: KnightPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6692257658976540728, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
       propertyPath: m_RootOrder
@@ -134,6 +138,7 @@ PrefabInstance:
       objectReference: {fileID: 730682518971214420}
     m_RemovedComponents:
     - {fileID: 7714825150474779684, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
+    - {fileID: 1963682025201329673, guid: 61e720af7326a7941ac81aab8a60e090, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

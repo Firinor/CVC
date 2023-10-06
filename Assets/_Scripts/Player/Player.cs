@@ -16,6 +16,12 @@ public class Player
 
     public Vector3 CastlePosition => buildings.Castle.transform.position;
 
+    #region Taktics
+    public (int, bool) NeedUnit(int step, EUnitClass unitClass, EResource resource)
+    {
+        throw new Exception("TODO!");
+    }
+    #endregion
     #region Resourses
     public IntReactiveProperty this[EResource key] => resourses[key];
 

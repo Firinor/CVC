@@ -19,4 +19,6 @@ MonoBehaviour:
   MaxDefenceRate: 100
   Energy: 0
   MaxEnergy: 100
+  WorkSpeed: 2
   BuffLimit: 2
+  Icon: {fileID: 807919276, guid: 8fc2b8a175c861441a5a1f1d46181327, type: 3}

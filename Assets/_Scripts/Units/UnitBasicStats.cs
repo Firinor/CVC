@@ -17,4 +17,6 @@ public class UnitBasicStats : ScriptableObject
     public float WorkSpeed = 2;
 
     public int BuffLimit = 2;
+
+    public Sprite Icon;
 }
